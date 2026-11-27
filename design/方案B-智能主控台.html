@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>方案B · 智能主控台 Newsroom OS</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --bg:#0B0F1A; --panel:#131A2A; --card:#1A2338; --edge:#273250;
+    --txt:#E5EAF3; --sub:#8A94A8;
+    --brand1:#3B82F6; --brand2:#22D3EE;
+    /* 六模块霓虹色相 */
+    --c-m1:#22D3EE; --c-m2:#FB923C; --c-m3:#A78BFA; --c-m4:#F87171; --c-m5:#34D399; --c-m6:#FBBF24;
+  }
+  body { background:radial-gradient(1200px 700px at 25% -10%, #16233D 0%, var(--bg) 60%); color:var(--txt); font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; min-height:100vh; }
+  .wrap { max-width:1200px; margin:0 auto; padding:48px 32px 96px; }
+  a.back { color:var(--brand2); text-decoration:none; font-size:13px; letter-spacing:2px; }
+
+  .hero { margin:24px 0 40px; }
+  .hero .kicker { font-size:12px; letter-spacing:6px; color:var(--sub); margin-bottom:12px; }
+  .hero h1 { font-size:46px; font-weight:900; letter-spacing:2px; background:linear-gradient(90deg,var(--brand1),var(--brand2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .hero .sub { color:var(--sub); margin-top:10px; font-size:15px; }
+
+  .concept { display:grid; grid-template-columns:2fr 1fr; gap:28px; margin-bottom:44px; }
+  .glass { background:linear-gradient(160deg, rgba(38,50,80,.55), rgba(19,26,42,.85)); border:1px solid var(--edge); border-radius:16px; backdrop-filter:blur(8px); }
+  .concept .main { padding:26px 30px; }
+  .concept h2 { font-size:22px; margin-bottom:14px; }
+  .concept p { font-size:14px; line-height:2; color:#B8C2D6; margin-bottom:10px; }
+  .concept .hl { color:var(--brand2); font-weight:700; }
+  .spec { padding:22px 24px; font-size:13px; line-height:2.1; color:#B8C2D6; }
+  .spec b { display:block; color:var(--txt); letter-spacing:2px; border-bottom:1px solid var(--edge); padding-bottom:8px; margin-bottom:10px; }
+
+  .sec-title { font-size:13px; letter-spacing:4px; color:var(--sub); margin:44px 0 18px; display:flex; justify-content:space-between; align-items:center; }
+  .sec-title::before { content:""; width:22px; height:2px; background:linear-gradient(90deg,var(--brand1),var(--brand2)); margin-right:12px; }
+  .sec-title span:first-of-type { margin-right:auto; }
+
+  .palette { display:flex; border-radius:14px; overflow:hidden; border:1px solid var(--edge); }
+  .sw { flex:1; height:96px; position:relative; }
+  .sw span { position:absolute; bottom:8px; left:10px; font-size:11px; color:#fff; opacity:.85; letter-spacing:1px; }
+  .sw.dim span { color:#9AA3B5; }
+
+  /* 模块色相条 */
+  .mods { display:grid; grid-template-columns:repeat(6,1fr); gap:14px; }
+  .mod { border-radius:14px; padding:18px 14px; border:1px solid var(--edge); background:var(--card); position:relative; overflow:hidden; }
+  .mod::before { content:""; position:absolute; top:0; left:0; right:0; height:3px; background:var(--mc); }
+  .mod .glow { position:absolute; top:-30px; right:-30px; width:90px; height:90px; border-radius:50%; background:var(--mc); opacity:.16; filter:blur(24px); }
+  .mod .ic { width:34px; height:34px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:16px; background:color-mix(in srgb, var(--mc) 18%, transparent); color:var(--mc); border:1px solid color-mix(in srgb, var(--mc) 40%, transparent); margin-bottom:10px; }
+  .mod .name { font-size:13px; font-weight:700; }
+  .mod .en { font-size:10px; color:var(--sub); letter-spacing:1px; margin-top:3px; }
+
+  /* 步骤条 */
+  .stepbar { display:flex; align-items:center; padding:20px 26px; border-radius:16px; }
+  .st { display:flex; align-items:center; gap:10px; }
+  .dot { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:800; }
+  .st.done .dot { background:linear-gradient(135deg,var(--brand1),var(--brand2)); color:#08101E; }
+  .st.cur .dot { background:transparent; border:2px solid var(--c-m3); color:var(--c-m3); box-shadow:0 0 18px color-mix(in srgb, var(--c-m3) 55%, transparent); animation:pulse 2s infinite; }
+  .st.todo .dot { border:1.5px dashed var(--edge); color:var(--sub); }
+  @keyframes pulse { 50% { box-shadow:0 0 30px color-mix(in srgb, var(--c-m3) 80%, transparent); } }
+  .st .lbl { font-size:14px; color:var(--sub); letter-spacing:2px; }
+  .st.done .lbl { color:var(--txt); }
+  .st.cur .lbl { color:var(--c-m3); font-weight:800; }
+  .conn { flex:1; height:2px; margin:0 12px; background:var(--edge); border-radius:2px; position:relative; overflow:hidden; }
+  .conn.done::after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,var(--brand1),var(--brand2)); }
+
+  .comps { display:grid; grid-template-columns:1fr 1fr; gap:26px; }
+  .comp-label { font-size:11px; letter-spacing:3px; color:var(--sub); margin-bottom:10px; }
+
+  /* 热点卡 M1 */
+  .hotcard { border-radius:16px; padding:20px 22px; display:flex; gap:18px; align-items:center; border:1px solid var(--edge); background:var(--card); position:relative; overflow:hidden; }
+  .hotcard::before { content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--c-m1); }
+  .hotcard .heat { font-size:42px; font-weight:900; color:var(--c-m1); font-variant-numeric:tabular-nums; text-shadow:0 0 22px color-mix(in srgb, var(--c-m1) 45%, transparent); }
+  .hotcard .heat small { display:block; font-size:10px; color:var(--sub); letter-spacing:2px; text-shadow:none; font-weight:400; }
+  .hotcard h3 { font-size:17px; margin-bottom:8px; }
+  .hotcard .tags span { font-size:11px; border:1px solid var(--edge); border-radius:999px; padding:2px 10px; margin-right:6px; color:var(--sub); }
+  .live { position:absolute; top:14px; right:16px; font-size:10px; color:var(--c-m1); letter-spacing:2px; display:flex; align-items:center; gap:6px; }
+  .live i { width:7px; height:7px; border-radius:50%; background:var(--c-m1); box-shadow:0 0 10px var(--c-m1); animation:pulse2 1.6s infinite; font-style:normal; }
+  @keyframes pulse2 { 50% { opacity:.3; } }
+
+  /* 审校卡 M4 */
+  .issue { border-radius:16px; border:1px solid var(--edge); background:var(--card); overflow:hidden; position:relative; }
+  .issue::before { content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--c-m4); }
+  .issue .head { display:flex; align-items:center; gap:10px; padding:14px 20px; border-bottom:1px solid var(--edge); }
+  .badge-high { background:color-mix(in srgb, var(--c-m4) 20%, transparent); color:var(--c-m4); border:1px solid color-mix(in srgb, var(--c-m4) 45%, transparent); font-size:11px; padding:3px 12px; border-radius:999px; letter-spacing:2px; }
+  .issue .type { font-size:13px; font-weight:800; }
+  .issue .body { padding:16px 20px; font-size:14px; line-height:1.9; }
+  .evi { display:grid; grid-template-columns:1fr 26px 1fr; gap:8px; align-items:center; margin:12px 0; }
+  .evi .cell { background:#121A2C; border:1px solid var(--edge); border-radius:10px; padding:10px 12px; font-size:12px; color:#B8C2D6; }
+  .evi .cell b { color:var(--c-m4); }
+  .evi .cell.right b { color:var(--c-m5); }
+  .evi .neq { text-align:center; color:var(--c-m4); font-size:18px; font-weight:900; text-shadow:0 0 12px color-mix(in srgb, var(--c-m4) 60%, transparent); }
+  .btn-row { display:flex; gap:12px; padding:0 20px 18px; }
+  .btn { font-size:13px; padding:10px 24px; cursor:pointer; letter-spacing:2px; border-radius:9px; border:1px solid var(--edge); background:transparent; color:var(--sub); }
+  .btn.primary { background:linear-gradient(135deg,var(--brand1),var(--brand2)); border:none; color:#08101E; font-weight:800; box-shadow:0 4px 18px rgba(34,211,238,.3); }
+
+  /* 打字机卡 M3 */
+  .aigen { border-radius:16px; border:1px solid var(--edge); background:var(--card); padding:22px 24px; position:relative; overflow:hidden; }
+  .aigen::before { content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--c-m3); }
+  .aigen .tag { font-size:11px; color:var(--c-m3); letter-spacing:2px; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+  .aigen .tag i { width:8px; height:8px; border-radius:50%; background:var(--c-m3); box-shadow:0 0 12px var(--c-m3); font-style:normal; animation:pulse2 1.2s infinite; }
+  .paper { background:#FAFAF7; color:#1F2937; border-radius:10px; padding:18px 20px; font-size:15px; line-height:2; }
+  .paper .src { border-bottom:2px dashed var(--brand1); cursor:pointer; }
+  .paper .cursor { display:inline-block; width:2px; height:18px; background:var(--c-m3); vertical-align:-3px; animation:blink .53s step-end infinite; }
+  @keyframes blink { 50% { opacity:0; } }
+
+  /* 手机壳 M5 */
+  .shells { display:flex; gap:18px; }
+  .shell { width:150px; border-radius:20px; background:#10II1622; border:1px solid var(--edge); background:var(--panel); padding:12px 10px; font-size:9px; position:relative; }
+  .shell::before { content:""; position:absolute; top:6px; left:50%; transform:translateX(-50%); width:40px; height:5px; border-radius:999px; background:var(--edge); }
+  .shell .scr { margin-top:10px; border-radius:12px; overflow:hidden; }
+  .shell.wx .scr { background:#fff; color:#111; padding:9px; }
+  .shell.wb .scr { background:#fff; color:#111; padding:9px; }
+  .shell.dy .scr { background:#0D0D11; color:#eee; padding:9px; }
+  .shell h4 { font-size:10px; margin-bottom:4px; }
+  .shell p { line-height:1.7; color:#666; }
+  .shell.dy p { color:#bbb; }
+  .shell .ok { position:absolute; bottom:-9px; left:50%; transform:translateX(-50%); background:var(--c-m5); color:#062015; font-size:9px; padding:2px 12px; border-radius:999px; font-weight:800; box-shadow:0 0 14px color-mix(in srgb, var(--c-m5) 60%, transparent); }
+
+  .footer-note { margin-top:56px; border-top:1px solid var(--edge); padding-top:16px; font-size:12px; color:var(--sub); display:flex; justify-content:space-between; letter-spacing:1px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">← 返回方案总览</a>
+  <div class="hero">
+    <div class="kicker">UI / UX PROPOSAL — B</div>
+    <h1>NEWSROOM OS · 智能主控台</h1>
+    <div class="sub">深色指挥中心 × 玻璃拟态 × 六色霓虹环节系统 —— 投屏冲击力最大化</div>
+  </div>
+
+  <div class="concept">
+    <div class="glass main">
+      <h2>设计概念：把编辑部做成一间新闻指挥中心</h2>
+      <p>彭博终端、SpaceX 任务大屏、电视台导播室——专业工具的深色界面自带"重要事情正在发生"的心理暗示。本方案以<span class="hl">深蓝黑宇宙底 + 玻璃拟态面板 + 青蓝渐变主脉络</span>构建工作台，数字等宽跳动、光晕呼吸、扫描线过场，全部动效为投屏而生。</p>
+      <p><b>模块区分逻辑（霓虹色相系统）</b>：六个模块各持一种霓虹色相——<span style="color:var(--c-m1)">选题·雷达青</span> / <span style="color:var(--c-m2)">采访·声波橙</span> / <span style="color:var(--c-m3)">写作·墨韵紫</span> / <span style="color:var(--c-m4)">审校·警示红</span> / <span style="color:var(--c-m5)">分发·发射绿</span> / <span style="color:var(--c-m6)">洞察·数据金</span>。进入模块时，卡片描边、光晕、当前步骤节点全部切换为该色相，"整个房间的灯光随环节变色"。</p>
+      <p><b>继承性</b>：唯一深底、唯一玻璃卡片语言、唯一青蓝渐变用于所有"完成/主按钮"语义；稿件区保持纸白底例外——内容是白纸，工具是暗房，对比即叙事。</p>
+    </div>
+    <div class="glass spec">
+      <b>设计 TOKENS</b>
+      宇宙底 #0B0F1A · 面板 #131A2A<br>
+      卡片 #1A2338 · 描边 #273250<br>
+      主渐变 #3B82F6 → #22D3EE<br>
+      字体：系统栈 + tnum 等宽数字<br>
+      圆角：14-16px · 玻璃 blur 8px<br>
+      动效：光晕呼吸 / 扫描线 / 数字滚动<br>
+      稿件区例外：纸白 #FAFAF7
+    </div>
+  </div>
+
+  <div class="sec-title"><span>色板 PALETTE</span><span>一个宇宙底，六种环节霓虹</span></div>
+  <div class="palette">
+    <div class="sw dim" style="background:#0B0F1A;"><span>宇宙底</span></div>
+    <div class="sw dim" style="background:#1A2338;"><span>玻璃卡</span></div>
+    <div class="sw" style="background:linear-gradient(135deg,#3B82F6,#22D3EE);"><span>主渐变</span></div>
+    <div class="sw" style="background:#22D3EE;"><span>M1 雷达青</span></div>
+    <div class="sw" style="background:#FB923C;"><span>M2 声波橙</span></div>
+    <div class="sw" style="background:#A78BFA;"><span>M3 墨韵紫</span></div>
+    <div class="sw" style="background:#F87171;"><span>M4 警示红</span></div>
+    <div class="sw" style="background:#34D399;"><span>M5 发射绿</span></div>
+    <div class="sw" style="background:#FBBF24;"><span>M6 数据金</span></div>
+  </div>
+
+  <div class="sec-title"><span>六模块 · 霓虹色相系统</span><span>区分：色相+光晕 / 继承：玻璃卡+深底+渐变语义</span></div>
+  <div class="mods">
+    <div class="mod" style="--mc:var(--c-m1)"><div class="glow"></div><div class="ic">◎</div><div class="name">智能选题</div><div class="en">TOPIC RADAR</div></div>
+    <div class="mod" style="--mc:var(--c-m2)"><div class="glow"></div><div class="ic">〰</div><div class="name">采访助手</div><div class="en">INTERVIEW</div></div>
+    <div class="mod" style="--mc:var(--c-m3)"><div class="glow"></div><div class="ic">✎</div><div class="name">智能写作台</div><div class="en">WRITING</div></div>
+    <div class="mod" style="--mc:var(--c-m4)"><div class="glow"></div><div class="ic">✓</div><div class="name">智能审校</div><div class="en">REVIEW</div></div>
+    <div class="mod" style="--mc:var(--c-m5)"><div class="glow"></div><div class="ic">↗</div><div class="name">全渠道分发</div><div class="en">PUBLISH</div></div>
+    <div class="mod" style="--mc:var(--c-m6)"><div class="glow"></div><div class="ic">◔</div><div class="name">效果洞察</div><div class="en">INSIGHTS</div></div>
+  </div>
+
+  <div class="sec-title"><span>全局步骤条 · 实景</span><span>当前节点承接模块色相（示例：写作·紫）</span></div>
+  <div class="glass stepbar">
+    <div class="st done"><div class="dot">✓</div><span class="lbl">选题</span></div><div class="conn done"></div>
+    <div class="st done"><div class="dot">✓</div><span class="lbl">采访</span></div><div class="conn done"></div>
+    <div class="st cur"><div class="dot">3</div><span class="lbl">写作</span></div><div class="conn"></div>
+    <div class="st todo"><div class="dot">4</div><span class="lbl">审校</span></div><div class="conn"></div>
+    <div class="st todo"><div class="dot">5</div><span class="lbl">分发</span></div><div class="conn"></div>
+    <div class="st todo"><div class="dot">6</div><span class="lbl">洞察</span></div>
+  </div>
+
+  <div class="sec-title"><span>关键组件 · 实景渲染</span><span>M1 热点卡 / M4 依据对比 / M3 生成中 / M5 手机壳</span></div>
+  <div class="comps">
+    <div>
+      <div class="comp-label">M1 · 热点雷达条目（雷达青光晕）</div>
+      <div class="hotcard">
+        <div class="heat">92<small>热度指数</small></div>
+        <div>
+          <h3>低空经济再提速：深圳无人机外卖配送单量激增</h3>
+          <div class="tags"><span>微博热搜</span><span>本地论坛</span><span>短视频</span></div>
+        </div>
+        <div class="live"><i></i>LIVE</div>
+      </div>
+      <div style="height:22px"></div>
+      <div class="comp-label">M3 · AI 初稿生成中（墨韵紫 + 纸白稿件区）</div>
+      <div class="aigen">
+        <div class="tag"><i></i>AI 正在撰写 · 第 2 段 / 共 6 段</div>
+        <div class="paper">
+          据翎航科技运营总监陈明宇介绍，该平台目前日均配送量已达<span class="src">12 万单</span>，相比去年同期翻了近三倍<span class="cursor"></span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="comp-label">M4 · 审校问题卡（警示红 + 依据并排对比）</div>
+      <div class="issue">
+        <div class="head"><span class="badge-high">高风险</span><span class="type">事实核查</span><span style="margin-left:auto;font-size:11px;color:var(--sub);">R1 / 4</span></div>
+        <div class="body">
+          稿件表述与采访素材直接矛盾：
+          <div class="evi">
+            <div class="cell">稿件：日均配送量已达 <b>12 万单</b></div>
+            <div class="neq">≠</div>
+            <div class="cell right">素材 00:12：“日均配送量在 <b>1.2 万单</b> 左右”——陈明宇</div>
+          </div>
+        </div>
+        <div class="btn-row"><button class="btn primary">✓ 采纳修改</button><button class="btn">忽略</button></div>
+      </div>
+      <div style="height:22px"></div>
+      <div class="comp-label">M5 · 平台仿真壳（发射绿就绪标记）</div>
+      <div class="shells">
+        <div class="shell wx"><div class="scr"><h4 style="color:#111">你的咖啡，正在天上飞</h4><p>午后两点，福田区一栋写字楼的天台停机坪……</p></div><div class="ok">✓ 就绪</div></div>
+        <div class="shell wb"><div class="scr"><p style="color:#333">【你的咖啡，正在天上飞】深圳低空外卖日均约 1.2 万单…… <span style="color:#1D6BC0">#低空经济#</span></p></div><div class="ok">✓ 就绪</div></div>
+        <div class="shell dy"><div class="scr"><h4>口播脚本</h4><p>镜1｜无人机吊舱降落特写 · 3s<br>“你的咖啡，可能正在天上飞。”</p></div><div class="ok">✓ 就绪</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note"><span>方案 B · NEWSROOM OS 智能主控台</span><span>适配倾向：会场投屏演示 / 强调技术前沿感与现场震撼</span></div>
+</div>
+</body>
+</html>

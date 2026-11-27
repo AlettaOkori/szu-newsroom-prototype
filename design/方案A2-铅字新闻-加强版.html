@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>方案A · 加强版 — 六个版面，六种性格</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --paper:#F7F5F0; --ink:#1A1817; --ink2:#5C5852; --line:#D8D2C4; --red:#C8102E; --hl:#FFE96B;
+  }
+  body { background:var(--paper); color:var(--ink); font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; }
+  .serif { font-family:Georgia,"Noto Serif SC","SimSun",serif; }
+  .mono { font-family:"Courier New",monospace; }
+  .wrap { max-width:1240px; margin:0 auto; padding:48px 32px 96px; }
+  a.back { color:var(--red); text-decoration:none; font-size:13px; letter-spacing:2px; }
+
+  .masthead { text-align:center; border-bottom:3px double var(--ink); padding-bottom:20px; margin:18px 0 8px; }
+  .masthead .kicker { font-size:12px; letter-spacing:6px; color:var(--ink2); margin-bottom:10px; }
+  .masthead h1 { font-size:44px; letter-spacing:6px; font-weight:900; }
+  .masthead h1 em { color:var(--red); font-style:normal; }
+  .dateline { display:flex; justify-content:space-between; font-size:12px; color:var(--ink2); border-bottom:1px solid var(--ink); padding:8px 2px; margin-bottom:36px; letter-spacing:1px; }
+
+  .intro { display:grid; grid-template-columns:2fr 1fr; gap:28px; margin-bottom:44px; }
+  .intro p { font-size:14px; line-height:2; color:var(--ink2); margin-bottom:10px; }
+  .intro .hl { background:linear-gradient(transparent 55%, var(--hl) 55%); color:var(--ink); font-weight:600; }
+  .inherit { border:1px solid var(--ink); padding:20px; font-size:13px; line-height:2.1; background:#FDFCF9; }
+  .inherit b { display:block; border-bottom:1px solid var(--line); margin-bottom:8px; padding-bottom:6px; letter-spacing:2px; }
+
+  .sec-title { font-size:13px; letter-spacing:4px; color:var(--ink2); border-top:1px solid var(--ink); padding-top:10px; margin:40px 0 20px; display:flex; justify-content:space-between; }
+
+  /* 六版面网格 */
+  .pages { display:grid; grid-template-columns:1fr 1fr; gap:26px; }
+  .page { border:1px solid var(--ink); background:#FDFCF9; overflow:hidden; }
+  .page .head { display:flex; align-items:baseline; gap:12px; padding:12px 18px; border-bottom:1px solid var(--ink); background:#FDFCF9; }
+  .page .head .no { font-family:Georgia,serif; font-size:24px; font-weight:900; }
+  .page .head .nm { font-size:15px; font-weight:800; letter-spacing:2px; }
+  .page .head .metaphor { margin-left:auto; font-size:11px; color:var(--ink2); letter-spacing:2px; }
+  .page .body { padding:20px; min-height:250px; position:relative; }
+  .page .desc { padding:12px 18px; border-top:1px solid var(--line); font-size:12px; line-height:1.9; color:var(--ink2); background:#FDFCF9; }
+  .page .desc b { color:var(--ink); }
+
+  /* A1 要闻版：经典头版 */
+  .a1 .body { background:#FDFCF9; }
+  .a1 .headline { font-size:24px; font-weight:900; line-height:1.4; border-bottom:1px solid var(--line); padding-bottom:12px; margin-bottom:12px; }
+  .a1 .headline .fire { color:var(--red); }
+  .a1 .cols { display:grid; grid-template-columns:1fr 1fr; gap:14px; font-size:12px; color:var(--ink2); line-height:1.9; }
+  .a1 .cols .col { border-right:1px solid var(--line); padding-right:14px; }
+  .a1 .cols .col:last-child { border-right:none; }
+  .a1 .heatbox { float:right; margin:0 0 8px 12px; border:2px solid var(--red); text-align:center; padding:8px 14px; }
+  .a1 .heatbox b { font-family:Georgia,serif; font-size:34px; color:var(--red); display:block; line-height:1; }
+  .a1 .heatbox small { font-size:10px; letter-spacing:2px; color:var(--ink2); }
+  .a1 .breaking { position:absolute; top:14px; right:-34px; background:var(--red); color:#fff; font-size:11px; letter-spacing:3px; padding:4px 42px; transform:rotate(35deg); }
+
+  /* A2 采访·记者手记：牛皮纸+横线笔记本 */
+  .a2 .body { background:#EFE3CC; background-image:repeating-linear-gradient(transparent, transparent 27px, #D9C49A 28px); }
+  .a2 .clip { position:absolute; top:-6px; left:26px; width:14px; height:34px; border:3px solid #8A7350; border-radius:8px 8px 0 0; border-bottom:none; }
+  .a2 .qa { font-size:13px; line-height:28px; }
+  .a2 .qa .q { font-weight:800; }
+  .a2 .qa .q::before { content:"Q · "; color:#B4690E; font-family:Georgia,serif; }
+  .a2 .qa .a::before { content:"A · "; color:#8A7350; font-family:Georgia,serif; font-weight:800; }
+  .a2 .stamp-data { display:inline-block; background:#FDFCF9; border:1px dashed #B4690E; color:#B4690E; font-weight:800; padding:1px 8px; transform:rotate(-1deg); }
+  .a2 .tape { position:absolute; right:22px; top:18px; background:rgba(255,233,107,.75); padding:8px 14px; font-size:11px; transform:rotate(2deg); box-shadow:2px 3px 6px rgba(90,70,40,.2); }
+  .a2 .tape::before { content:""; position:absolute; top:-8px; left:50%; transform:translateX(-50%) rotate(-2deg); width:46px; height:14px; background:rgba(180,160,120,.35); }
+  .a2 .wave { margin-top:10px; display:flex; align-items:flex-end; gap:2px; height:26px; }
+  .a2 .wave i { width:3px; background:#B4690E; opacity:.7; }
+
+  /* A3 写作·稿纸：中文绿格稿纸 */
+  .a3 .body { background:#F9F8F2; background-image:linear-gradient(#CDE0CD 1px, transparent 1px), linear-gradient(90deg, #CDE0CD 1px, transparent 1px); background-size:26px 26px; }
+  .a3 .sheet-label { position:absolute; top:8px; right:14px; font-size:10px; color:#7BA07B; letter-spacing:2px; }
+  .a3 h4 { font-family:Georgia,"Noto Serif SC",serif; font-size:20px; margin-bottom:10px; background:#F9F8F2; display:inline-block; padding:0 6px; }
+  .a3 p { font-family:Georgia,"Noto Serif SC",serif; font-size:14px; line-height:26px; text-indent:2em; background:rgba(249,248,242,.6); }
+  .a3 .src { border-bottom:2px dotted var(--red); }
+  .a3 .cursor { display:inline-block; width:2px; height:15px; background:#2F6B3A; vertical-align:-2px; animation:blink .53s step-end infinite; }
+  @keyframes blink { 50% { opacity:0; } }
+  .a3 .ai-note { margin-top:12px; background:var(--hl); display:inline-block; padding:5px 12px; font-size:11px; transform:rotate(-.8deg); box-shadow:2px 3px 0 rgba(26,24,23,.12); }
+  .a3 .wordcount { position:absolute; bottom:10px; right:14px; font-size:10px; color:#7BA07B; letter-spacing:1px; }
+
+  /* A4 审校·校对室：红笔批改 */
+  .a4 .body { background:#FDFCF9; }
+  .a4 p { font-family:Georgia,"Noto Serif SC",serif; font-size:15px; line-height:2.3; }
+  .a4 .del { position:relative; color:var(--ink); }
+  .a4 .del::after { content:""; position:absolute; left:-2px; right:-2px; top:52%; height:2px; background:var(--red); transform:rotate(-4deg); }
+  .a4 .fix { color:var(--red); font-weight:800; font-size:13px; position:relative; top:-9px; margin-left:2px; font-family:"Comic Sans MS","KaiTi",cursive; }
+  .a4 .circle { border:2px solid var(--red); border-radius:50%; padding:0 6px; }
+  .a4 .marginal { margin-top:14px; border-left:3px solid var(--red); padding:8px 14px; background:#FBEFF1; font-size:12px; color:#8E1F2F; font-family:"KaiTi","STKaiti",serif; }
+  .a4 .stamp { position:absolute; right:24px; bottom:18px; width:86px; height:86px; border:3px solid rgba(200,16,46,.75); border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; color:rgba(200,16,46,.8); transform:rotate(-12deg); font-weight:900; }
+  .a4 .stamp b { font-size:18px; letter-spacing:4px; }
+  .a4 .stamp small { font-size:9px; letter-spacing:1px; margin-top:2px; }
+  .a4 .counter { display:flex; gap:8px; margin-bottom:12px; }
+  .a4 .counter span { font-size:11px; padding:3px 12px; font-weight:800; }
+  .a4 .c1 { background:var(--red); color:#fff; }
+  .a4 .c2 { background:#E8A227; color:#fff; }
+  .a4 .c3 { background:#F2DD88; color:#6B5A1F; }
+
+  /* A5 分发·印刷车间：网点海报 */
+  .a5 .body { background:#FDFCF9; background-image:radial-gradient(#1F5C8E22 1.2px, transparent 1.3px); background-size:9px 9px; }
+  .a5 .reg { position:absolute; top:10px; left:14px; font-size:14px; color:var(--ink2); letter-spacing:6px; }
+  .a5 .poster { font-family:Georgia,"Noto Serif SC",serif; font-size:30px; font-weight:900; line-height:1.3; margin:16px 0 14px; }
+  .a5 .poster em { font-style:normal; color:#1F5C8E; }
+  .a5 .plates { display:flex; gap:12px; }
+  .a5 .plate { flex:1; border:1.5px solid var(--ink); background:#FDFCF9; padding:10px 10px 12px; font-size:10px; position:relative; }
+  .a5 .plate::before { content:attr(data-p); position:absolute; top:-9px; left:8px; background:#1F5C8E; color:#fff; font-size:9px; padding:1px 8px; letter-spacing:2px; }
+  .a5 .plate h5 { font-size:11px; margin:4px 0 4px; }
+  .a5 .plate p { color:var(--ink2); line-height:1.6; }
+  .a5 .cmyk { position:absolute; bottom:12px; right:16px; display:flex; gap:5px; }
+  .a5 .cmyk i { width:14px; height:14px; border:1px solid var(--ink); }
+
+  /* A6 洞察·数据版：坐标纸+财经图表 */
+  .a6 .body { background:#FDFCF9; background-image:linear-gradient(#2F6B3A18 1px, transparent 1px), linear-gradient(90deg, #2F6B3A18 1px, transparent 1px); background-size:18px 18px; }
+  .a6 .kpis { display:flex; gap:22px; margin-bottom:14px; }
+  .a6 .kpi b { font-family:Georgia,serif; font-size:30px; display:block; line-height:1.1; }
+  .a6 .kpi span { font-size:10px; color:var(--ink2); letter-spacing:2px; }
+  .a6 .kpi.up b::after { content:" ▲"; color:#2F6B3A; font-size:14px; }
+  .a6 .note { font-size:11px; color:#2F6B3A; border:1px dashed #2F6B3A; display:inline-block; padding:3px 10px; margin-top:10px; background:#F2F7F2; }
+
+  .footer-note { margin-top:52px; border-top:3px double var(--ink); padding-top:14px; font-size:12px; color:var(--ink2); display:flex; justify-content:space-between; letter-spacing:1px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">← 返回方案总览</a>
+  <div class="masthead">
+    <div class="kicker">PROPOSAL A — ENHANCED</div>
+    <h1 class="serif">六个版面，六种<em>性格</em></h1>
+  </div>
+  <div class="dateline serif"><span>铅字新闻 · 加强版</span><span>区分加强：换纸张、换质感、换标志元素</span><span>VOL.02 · 2026</span></div>
+
+  <div class="intro">
+    <div>
+      <p>加强版的区分逻辑从"<span class="hl">换专色</span>"升级为"<span class="hl">换房间</span>"：六个模块对应报社的六个工作空间——要闻编辑台、记者手记本、作家稿纸、校对红笔、印刷车间、数据坐标纸。每个模块拥有<span class="hl">自己的纸张质感与标志性元素</span>，走进去就知道换了环节，差异一眼可辨。</p>
+      <p>其中三个模块差异拉到最大：<b>A2 采访</b>整体换牛皮纸笔记本底（横线、回形针、胶带批注），<b>A4 审校</b>是布满红笔删改与圆形印章的校对台，<b>A6 洞察</b>换绿色坐标纸配财经版图表。A1/A3/A5 保持较近的报纸血缘，形成"熟悉—陌生"的节奏交替。</p>
+    </div>
+    <div class="inherit">
+      <b>继承骨架（六版共享，保证一家人）</b>
+      同一张桌子：暖白纸底 + 油墨黑<br>
+      同一套标题：衬线字 + 版号 A1-A6<br>
+      同一条脉络：报头红贯穿关键动作<br>
+      同一支笔：AI = 荧光批注/红笔/铅笔<br>
+      同一个印：印章语义（立项/签发/就绪）
+    </div>
+  </div>
+
+  <div class="sec-title"><span>六版面 · 实景渲染</span><span>每格 = 该模块真实界面的质感切片</span></div>
+  <div class="pages">
+
+    <div class="page a1">
+      <div class="head"><span class="no serif" style="color:var(--red)">A1</span><span class="nm">智能选题</span><span class="metaphor">要闻编辑台 · 经典头版</span></div>
+      <div class="body">
+        <div class="breaking">BREAKING</div>
+        <div class="heatbox"><b class="serif">92</b><small>热度</small></div>
+        <div class="headline serif">低空经济再提速：<span class="fire">深圳无人机外卖配送单量激增</span></div>
+        <div class="cols">
+          <div class="col">AI 选题助手：建议以民生视角切入，从写字楼白领收到"空投咖啡"的日常场景观察低空配送对城市生活方式的改变……</div>
+          <div class="col">新闻价值 92 · 时效性 88 · 操作难度 低。建议采访对象：无人机配送企业运营负责人；使用过服务的市民。</div>
+        </div>
+      </div>
+      <div class="desc"><b>性格：头版气场。</b>大标题、双栏文摘、热度号码框、BREAKING 斜标。热点列表就是当日要闻目录，立项 = 把头条"签"下来。</div>
+    </div>
+
+    <div class="page a2">
+      <div class="head"><span class="no serif" style="color:#B4690E">A2</span><span class="nm">采访助手</span><span class="metaphor">记者手记 · 牛皮纸笔记本</span></div>
+      <div class="body">
+        <div class="clip"></div>
+        <div class="tape">💡 建议追问：增长动力来自航线还是品类？</div>
+        <div class="qa">
+          <div class="q">现在深圳每天有多少单外卖是无人机送的？</div>
+          <div class="a">目前我们平台的日均配送量在 <span class="stamp-data">1.2 万单</span> 左右，相比去年同期翻了将近三倍。</div>
+        </div>
+        <div class="wave"><i style="height:8px"></i><i style="height:16px"></i><i style="height:22px"></i><i style="height:12px"></i><i style="height:24px"></i><i style="height:9px"></i><i style="height:18px"></i><i style="height:14px"></i><i style="height:21px"></i><i style="height:7px"></i><i style="height:15px"></i><i style="height:23px"></i><i style="height:11px"></i><i style="height:17px"></i></div>
+      </div>
+      <div class="desc"><b>性格：全屋换纸（差异最大之一）。</b>牛皮纸横线本、回形针、胶带追问贴条、Q/A 手记体例、波形墨迹。萃取的数据像盖了个虚线小戳，可撕下来归档。</div>
+    </div>
+
+    <div class="page a3">
+      <div class="head"><span class="no serif" style="color:#2F6B3A">A3</span><span class="nm">智能写作台</span><span class="metaphor">作家书房 · 绿格稿纸</span></div>
+      <div class="body">
+        <div class="sheet-label">智媒编辑部稿纸 · 20×26</div>
+        <h4>你的咖啡，正在天上飞</h4>
+        <p>据翎航科技运营总监陈明宇介绍，该平台目前日均配送量已达<span class="src">12 万单</span>，相比去年同期翻了近三倍<span class="cursor"></span></p>
+        <div class="ai-note">✎ AI 批注：红点线可溯源至采访素材</div>
+        <div class="wordcount">约 850 字 · 42 秒</div>
+      </div>
+      <div class="desc"><b>性格：中文稿纸的绿格子。</b>AI 打字机在稿纸上逐字爬格子——"AI 在稿纸上写字"这一画面本身就是传播点。溯源红点线 = 编辑铅笔线。</div>
+    </div>
+
+    <div class="page a4">
+      <div class="head"><span class="no serif" style="color:var(--red)">A4</span><span class="nm">智能审校</span><span class="metaphor">校对室 · 红笔与印章（差异最大）</span></div>
+      <div class="body">
+        <div class="counter"><span class="c1">高 1</span><span class="c2">中 1</span><span class="c3">低 2</span></div>
+        <p>该平台目前日均配送量已达<span class="del">12 万单</span><span class="fix">1.2万单</span>，相比去年同期翻了近三倍。在安全层面，深圳的探索走在<span class="circle">全国第一</span>……</p>
+        <div class="marginal">红批：与采访素材 00:12 不符——"日均配送量在 1.2 万单左右"（陈明宇）。请核。</div>
+        <div class="stamp"><b>签发</b><small>总编 王一舟</small></div>
+      </div>
+      <div class="desc"><b>性格：一支红笔统治的房间（差异最大之一）。</b>删改线、圈注、楷体红批注、旋转签发圆章。AI 审校报告以"校样批改"的形态呈现，裁决 = 接受/拒绝红笔。</div>
+    </div>
+
+    <div class="page a5">
+      <div class="head"><span class="no serif" style="color:#1F5C8E">A5</span><span class="nm">全渠道分发</span><span class="metaphor">印刷车间 · 网点与套版</span></div>
+      <div class="body">
+        <div class="reg">✚ ✚ ✚</div>
+        <div class="poster serif">一次签发，<em>三地开印</em></div>
+        <div class="plates">
+          <div class="plate" data-p="公众号版"><h5>你的咖啡，正在天上飞</h5><p>午后两点，福田区一栋写字楼的天台停机坪……</p></div>
+          <div class="plate" data-p="微博版"><p>【你的咖啡，正在天上飞】深圳低空外卖日均约 1.2 万单……#低空经济#</p></div>
+          <div class="plate" data-p="抖音脚本"><p>镜1｜无人机吊舱降落特写 · 3s<br>"你的咖啡，可能正在天上飞。"</p></div>
+        </div>
+        <div class="cmyk"><i style="background:#4FC3E8"></i><i style="background:#E85C9C"></i><i style="background:#F2DD3A"></i><i style="background:#1A1817"></i></div>
+      </div>
+      <div class="desc"><b>性格：印刷网点纸 + 三块"印版"。</b>三平台版本 = 三块同时上机的印版（保留手机壳仿真为内容区），CMYK 色标与套准十字做车间签名。发布 = 开印。</div>
+    </div>
+
+    <div class="page a6">
+      <div class="head"><span class="no serif" style="color:#2F6B3A">A6</span><span class="nm">效果洞察</span><span class="metaphor">数据版 · 坐标纸财经图（差异最大）</span></div>
+      <div class="body">
+        <div class="kpis">
+          <div class="kpi up"><b class="serif">96.4万</b><span>抖音播放</span></div>
+          <div class="kpi up"><b class="serif">182万</b><span>微博曝光</span></div>
+          <div class="kpi"><b class="serif">52,418</b><span>公众号阅读</span></div>
+        </div>
+        <svg width="100%" height="86" viewBox="0 0 440 86" preserveAspectRatio="none">
+          <polyline points="0,80 37,72 74,58 111,50 148,42 185,38 222,26 259,14 296,10 333,8 370,6 407,5" fill="none" stroke="#2F6B3A" stroke-width="2.5"/>
+          <circle cx="222" cy="26" r="4" fill="#C8102E"/>
+          <text x="230" y="20" font-size="10" fill="#C8102E">短视频引爆</text>
+        </svg>
+        <div class="note">AI 复盘：评论区"安全/监管"关键词占比 17% → 建议追踪《低空物流安全监管》</div>
+      </div>
+      <div class="desc"><b>性格：绿色坐标纸 + 财经版图表语言（差异最大之一）。</b>衬线大数字带涨跌箭头，折线是手绘感的钢笔线。复盘建议以"虚线便签"形态直通 A1 要闻台。</div>
+    </div>
+  </div>
+
+  <div class="footer-note serif"><span>方案 A 加强版 · 六个版面六种性格</span><span>A2 / A4 / A6 差异拉满 · A1 / A3 / A5 保持报纸血缘</span></div>
+</div>
+</body>
+</html>

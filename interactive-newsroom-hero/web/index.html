@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>智媒编辑部 · 六工位互动新闻编辑部</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="hero" data-scene data-active-desk="">
+    <video class="scene-video" data-video autoplay muted playsinline
+           poster="assets/newsroom-cover.png" aria-hidden="true">
+      <source src="assets/newsroom.mp4" type="video/mp4">
+    </video>
+    <div class="highlight-stack" aria-hidden="true">
+      <img class="highlight" data-highlight-id="a1" data-src="assets/newsroom-a1-highlight.png" alt="">
+      <img class="highlight" data-highlight-id="a2" data-src="assets/newsroom-a2-highlight.png" alt="">
+      <img class="highlight" data-highlight-id="a3" data-src="assets/newsroom-a3-highlight.png" alt="">
+      <img class="highlight" data-highlight-id="a4" data-src="assets/newsroom-a4-highlight.png" alt="">
+      <img class="highlight" data-highlight-id="a5" data-src="assets/newsroom-a5-highlight.png" alt="">
+      <img class="highlight" data-highlight-id="a6" data-src="assets/newsroom-a6-highlight.png" alt="">
+    </div>
+    <svg class="hit-map" viewBox="0 0 1280 720"
+         preserveAspectRatio="xMidYMid slice" aria-label="智媒编辑部六个工位">
+      <a data-desk-id="a1" id="desk-link-a1" href="../../demo/pages/m1-topics.html"
+         aria-label="A1 智能选题，策划编辑" aria-controls="role-card" aria-expanded="false">
+        <polygon data-hit-id="a1" points="395,217 304,300 386,314 471,229"></polygon>
+      </a>
+      <a data-desk-id="a2" id="desk-link-a2" href="../../demo/pages/m2-collection.html"
+         aria-label="A2 智能采集，记者" aria-controls="role-card" aria-expanded="false">
+        <polygon data-hit-id="a2" points="734,190 553,188 548,223 735,225"></polygon>
+      </a>
+      <a data-desk-id="a3" id="desk-link-a3" href="../../demo/pages/m3-writing.html"
+         aria-label="A3 智能写作，文字编辑" aria-controls="role-card" aria-expanded="false">
+        <polygon data-hit-id="a3" points="970,297 856,220 785,238 896,318"></polygon>
+      </a>
+      <a data-desk-id="a4" id="desk-link-a4" href="../../demo/pages/m4-review.html"
+         aria-label="A4 智能审校，审校编辑" aria-controls="role-card" aria-expanded="false">
+        <polygon data-hit-id="a4" points="980,478 1065,375 974,350 883,448"></polygon>
+      </a>
+      <a data-desk-id="a5" id="desk-link-a5" href="../../demo/pages/m5-channels.html"
+         aria-label="A5 全渠道分发，运营编辑" aria-controls="role-card" aria-expanded="false">
+        <polygon data-hit-id="a5" points="566,543 817,563 823,499 584,481"></polygon>
+      </a>
+      <a data-desk-id="a6" id="desk-link-a6" href="../../demo/pages/m6-insights.html"
+         aria-label="A6 效果洞察，数据分析师" aria-controls="role-card" aria-expanded="false">
+        <polygon data-hit-id="a6" points="278,398 403,493 491,455 363,365"></polygon>
+      </a>
+    </svg>
+    <aside class="role-card" id="role-card" data-card hidden>
+      <span data-card-kicker></span><h1 data-card-title></h1>
+      <b data-card-role></b><p data-card-copy></p><small data-card-action></small>
+      <em>点击进入模块 →</em>
+    </aside>
+    <p class="sr-status" data-status role="status" aria-live="polite" aria-atomic="true"></p>
+    <p class="fallback-message" data-fallback role="status" aria-live="polite" aria-atomic="true"></p>
+  </main>
+  <script src="scene-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

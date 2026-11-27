@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PROTOTYPE — A5/A6 数字媒体视觉方向</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif}button{font:inherit}
+.proto-note{position:fixed;left:18px;top:18px;z-index:99;padding:7px 11px;border:1px solid currentColor;font-size:10px;letter-spacing:.16em;text-transform:uppercase;opacity:.62}
+.switcher{position:fixed;z-index:100;left:50%;bottom:22px;transform:translateX(-50%);display:flex;align-items:center;gap:10px;padding:7px;border-radius:999px;background:#171717;color:#fff;box-shadow:0 10px 35px #0004}
+.switcher button{width:42px;height:42px;border:0;border-radius:50%;background:#303030;color:#fff;font-size:20px;cursor:pointer}
+.switcher .label{min-width:270px;text-align:center;font-size:12px;letter-spacing:.08em}.variant{display:none;min-height:100vh}.variant.active{display:block}
+.eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase}.serif{font-family:Georgia,"Noto Serif SC","Songti SC",SimSun,serif}
+
+/* A — DIGITAL FASHION EDITORIAL */
+#vA{background:#f4f0e8;color:#171717;padding:70px 5vw 120px}
+.fa-head{display:grid;grid-template-columns:1fr auto;align-items:end;border-bottom:1px solid #171717;padding-bottom:15px}
+.fa-head h1{margin:8px 0 0;font:700 clamp(42px,6vw,88px)/.92 Georgia,"Songti SC",serif;letter-spacing:-.055em}
+.fa-head .edition{font:italic 18px Georgia,serif;text-align:right}
+.fa5{display:grid;grid-template-columns:.75fr 1.25fr;min-height:590px;border-bottom:1px solid #171717}
+.fa-copy{padding:54px 4vw 42px 0;display:flex;flex-direction:column;justify-content:space-between}
+.fa-copy .big{font:700 clamp(46px,6vw,84px)/.94 Georgia,"Songti SC",serif;letter-spacing:-.055em}
+.fa-copy .big em{color:#d13a24;font-style:italic}.fa-copy p{max-width:440px;font-size:14px;line-height:1.9}
+.fa-action{display:inline-flex;align-items:center;gap:28px;border:0;border-bottom:2px solid #171717;background:none;padding:0 0 8px;font-weight:800;letter-spacing:.08em;cursor:pointer}
+.fa-stage{position:relative;overflow:hidden;background:#ded8cb;display:flex;align-items:center;justify-content:center}
+.fa-stage:after{content:"PUBLISH / 05";position:absolute;right:-21px;top:72px;transform:rotate(90deg);font-size:10px;letter-spacing:.25em}
+.device{position:absolute;width:30%;height:68%;border:8px solid #171717;border-radius:26px;background:#fff;box-shadow:0 22px 44px #382e2440;overflow:hidden}
+.device.one{left:8%;transform:rotate(-8deg)}.device.two{left:35%;z-index:2;transform:translateY(-18px)}.device.three{right:8%;transform:rotate(8deg);background:#111;color:#fff}
+.dev-top{height:28px;border-bottom:1px solid #ddd;display:flex;align-items:center;padding:0 10px;font-size:8px;font-weight:800}.dev-body{padding:14px 12px}.dev-body h3{font:700 16px/1.2 Georgia,"Songti SC",serif;margin:4px 0 12px}.dev-body p{font-size:9px;line-height:1.75;margin:0}.dev-img{height:92px;background:linear-gradient(145deg,#c7d5d4,#e8c9b8);margin:10px 0}.device.three .dev-img{background:linear-gradient(145deg,#215d61,#121b2a)}
+.fa6{padding:72px 0 50px}.fa6-title{display:flex;justify-content:space-between;align-items:flex-end}.fa6-title h2{font:700 clamp(44px,6vw,78px)/.9 Georgia,serif;margin:0;letter-spacing:-.05em}.fa6-title p{max-width:320px;font-size:13px;line-height:1.8}
+.fa-stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:45px;border-top:1px solid #171717;border-bottom:1px solid #171717}
+.fa-stat{padding:22px 20px 28px 0;border-right:1px solid #171717}.fa-stat:last-child{border:0;padding-left:20px}.fa-stat:nth-child(2){padding-left:20px}
+.fa-stat b{display:block;font:700 clamp(42px,5vw,66px)/1 Georgia,serif}.fa-stat span{font-size:11px;letter-spacing:.14em}
+.fa-insight{display:grid;grid-template-columns:1.4fr .6fr;margin-top:35px;gap:38px}.fa-chart{height:160px;border-left:1px solid #171717;border-bottom:1px solid #171717;position:relative}
+.fa-chart svg{width:100%;height:100%}.fa-note{background:#d13a24;color:#fff;padding:24px;font:italic 18px/1.6 Georgia,"Songti SC",serif;transform:rotate(1.5deg)}
+
+/* B — SWISS MOTION GRID */
+#vB{background:#f7f7f5;color:#0d0d0d;padding:68px 4vw 120px}
+.sw-head{display:grid;grid-template-columns:110px 1fr 180px;border-top:9px solid #0d0d0d;border-bottom:1px solid #0d0d0d;padding:13px 0}
+.sw-mark{font-size:34px;font-weight:900}.sw-head h1{margin:0;font-size:16px;letter-spacing:.13em;text-transform:uppercase}.sw-head .meta{text-align:right;font-size:10px;line-height:1.6}
+.sw5{display:grid;grid-template-columns:110px 1fr;border-bottom:1px solid #0d0d0d}.sw-index{border-right:1px solid #0d0d0d;padding:30px 10px 0 0}.sw-index b{font-size:72px;line-height:.8}.sw-index span{display:block;margin-top:15px;font-size:10px;letter-spacing:.15em;writing-mode:vertical-rl}
+.sw-main{padding:28px 0 42px 28px}.sw-title{font-size:clamp(42px,7vw,105px);font-weight:900;line-height:.82;letter-spacing:-.075em;text-transform:uppercase;margin:0 0 34px}.sw-title i{color:#145cff;font-style:normal}
+.sw-channels{display:grid;grid-template-columns:1.2fr .8fr 1fr;gap:8px;height:250px}.sw-channel{position:relative;padding:18px;background:#e5e5e1;overflow:hidden}.sw-channel:nth-child(2){background:#145cff;color:#fff}.sw-channel:nth-child(3){background:#0d0d0d;color:#fff}
+.sw-channel .n{position:absolute;right:8px;bottom:-18px;font-size:112px;font-weight:900;line-height:1;opacity:.12}.sw-channel h3{font-size:12px;letter-spacing:.12em;margin:0 0 35px}.sw-channel p{font-size:13px;line-height:1.65;max-width:260px}.sw-channel .ready{position:absolute;left:18px;bottom:15px;font-size:10px;font-weight:800;letter-spacing:.14em}
+.sw6{display:grid;grid-template-columns:110px 1fr}.sw6-content{padding:40px 0 30px 28px}.sw-datahead{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid #0d0d0d}
+.sw-kpi{padding:14px 10px 20px 0;border-right:1px solid #0d0d0d}.sw-kpi:not(:first-child){padding-left:16px}.sw-kpi b{font-size:clamp(44px,5vw,74px);font-weight:900;letter-spacing:-.06em}.sw-kpi span{display:block;font-size:10px;letter-spacing:.15em}
+.sw-grid{display:grid;grid-template-columns:2fr 1fr;margin-top:15px;gap:8px}.sw-chart{height:210px;background:#fff;border:1px solid #0d0d0d;position:relative;padding:15px}.sw-chart .axis{position:absolute;left:15px;top:15px;font-size:10px;letter-spacing:.15em}
+.sw-report{background:#ff3d19;color:#fff;padding:22px;display:flex;flex-direction:column;justify-content:space-between}.sw-report h3{margin:0;font-size:24px;line-height:1}.sw-report p{font-size:12px;line-height:1.7}.sw-report button{align-self:flex-start;border:0;background:#0d0d0d;color:#fff;padding:10px 15px;font-size:10px;font-weight:800;letter-spacing:.1em}
+
+/* C — SPATIAL MEDIA GALLERY */
+#vC{background:radial-gradient(circle at 28% 18%,#fff 0,#eef4f6 42%,#e5e8f1 100%);color:#15202b;padding:70px 5vw 130px;overflow:hidden}
+.sp-head{display:flex;justify-content:space-between;align-items:center}.sp-logo{font:700 26px Georgia,serif}.sp-head .crumb{font-size:11px;letter-spacing:.12em;color:#64748b}
+.sp5{position:relative;height:610px;margin-top:25px}.sp-orb{position:absolute;border-radius:50%;filter:blur(8px);opacity:.45}.orb1{width:330px;height:330px;background:#83e2d2;right:-80px;top:10px}.orb2{width:270px;height:270px;background:#b9a7ff;left:30%;bottom:15px}
+.sp-copy{position:absolute;left:0;top:60px;z-index:4;max-width:480px}.sp-copy .num{font:italic 18px Georgia,serif}.sp-copy h1{font:700 clamp(52px,7vw,100px)/.9 Georgia,"Songti SC",serif;letter-spacing:-.06em;margin:15px 0 26px}.sp-copy p{max-width:380px;font-size:14px;line-height:1.9;color:#526170}
+.sp-copy button{border:1px solid #15202b;background:#ffffff70;backdrop-filter:blur(15px);padding:13px 20px;border-radius:999px;font-size:12px;font-weight:800}
+.float-window{position:absolute;border:1px solid #ffffffaa;background:#ffffff78;backdrop-filter:blur(24px);box-shadow:0 28px 70px #55708026;border-radius:28px;overflow:hidden}
+.fw1{width:245px;height:390px;right:28%;top:25px;transform:rotate(-6deg);z-index:2}.fw2{width:245px;height:390px;right:9%;top:100px;transform:rotate(6deg);z-index:3}.fw3{width:245px;height:390px;right:20%;top:180px;z-index:5}
+.fw-head{padding:15px 17px;border-bottom:1px solid #ffffffaa;display:flex;justify-content:space-between;font-size:10px;font-weight:800}.fw-body{padding:19px}.fw-body h3{font:700 18px/1.15 Georgia,"Songti SC",serif;margin:5px 0 14px}.fw-body p{font-size:10px;line-height:1.8}.fw-photo{height:125px;border-radius:15px;background:linear-gradient(145deg,#9fc6c4,#e2baa8);margin:14px 0}.fw2 .fw-photo{background:linear-gradient(145deg,#9aa9e0,#dfb5ca)}.fw3 .fw-photo{background:linear-gradient(145deg,#22354a,#49958b)}
+.sp6{position:relative;padding-top:25px}.sp6 h2{font:700 clamp(42px,6vw,76px)/.95 Georgia,serif;margin:0 0 32px;letter-spacing:-.045em}
+.sp-dashboard{display:grid;grid-template-columns:1.4fr .6fr;gap:22px}.sp-glass{border:1px solid #fff;background:#ffffff86;backdrop-filter:blur(24px);box-shadow:0 22px 60px #52657a20;border-radius:28px;padding:25px}
+.sp-kpis{display:flex;gap:30px}.sp-kpi b{font:700 46px/1 Georgia,serif}.sp-kpi span{display:block;margin-top:5px;color:#64748b;font-size:10px;letter-spacing:.12em}.sp-chart{height:170px;margin-top:22px}
+.sp-ai{display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(145deg,#142b33e8,#243450e8);color:#fff}.sp-ai .spark{width:34px;height:34px;border-radius:50%;background:linear-gradient(145deg,#83e2d2,#b9a7ff);box-shadow:0 0 30px #83e2d299}.sp-ai h3{font:italic 23px/1.3 Georgia,"Songti SC",serif}.sp-ai p{font-size:12px;line-height:1.8;color:#d5e3ea}.sp-ai button{align-self:flex-start;border:1px solid #ffffff70;background:#ffffff12;color:#fff;border-radius:999px;padding:10px 16px;font-size:10px;letter-spacing:.08em}
+
+/* D — BROADCAST MEDIA WALL */
+#vD{background:#edf0f4;color:#111820;padding:66px 4vw 125px}
+.bc-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #9ba7b5;padding-bottom:14px}.bc-brand{display:flex;align-items:center;gap:13px;font-weight:900;letter-spacing:.08em}.bc-live{background:#ff304c;color:#fff;padding:5px 9px;font-size:10px;letter-spacing:.12em}.bc-time{font:700 20px/1 "Courier New",monospace}
+.bc5{display:grid;grid-template-columns:1.05fr 1.95fr;margin-top:22px;min-height:540px}.bc-brief{background:#1025cd;color:#fff;padding:40px 34px;display:flex;flex-direction:column;justify-content:space-between}.bc-brief .id{font:700 13px "Courier New",monospace}.bc-brief h1{font-size:clamp(46px,6vw,82px);line-height:.9;letter-spacing:-.065em;margin:24px 0}.bc-brief p{font-size:13px;line-height:1.8;color:#dce2ff}.bc-brief button{align-self:flex-start;border:0;background:#ffef36;padding:12px 17px;font-weight:900}
+.media-wall{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:3px;background:#111820;padding:3px}.monitor{background:#fff;position:relative;overflow:hidden;padding:18px}.monitor.video{grid-row:span 2;background:#161b22;color:#fff;padding:0}.monitor.video .scene{height:72%;background:linear-gradient(145deg,#537f89,#152431 65%,#e67c56);position:relative}.monitor.video .scene:after{content:"无人机配送现场 / 00:24";position:absolute;left:15px;bottom:15px;background:#ff304c;padding:5px 8px;font:700 10px "Courier New",monospace}.monitor.video .caption{padding:16px;font-weight:800;font-size:17px}.monitor .channel{font:700 10px "Courier New",monospace;letter-spacing:.08em}.monitor h3{font-size:19px;margin:18px 0 10px;line-height:1.15}.monitor p{font-size:11px;line-height:1.7;color:#55616f}.monitor .status{position:absolute;right:12px;top:12px;color:#0a9f67;font:700 10px "Courier New",monospace}
+.ticker{grid-column:1/-1;background:#ffef36;border-top:3px solid #111820;border-bottom:3px solid #111820;padding:8px 0;overflow:hidden;white-space:nowrap;font:900 13px "Courier New",monospace;letter-spacing:.08em}.ticker span{display:inline-block;animation:ticker 14s linear infinite}@keyframes ticker{to{transform:translateX(-50%)}}
+.bc6{margin-top:36px}.bc6-head{display:grid;grid-template-columns:1fr 2fr;align-items:end;margin-bottom:16px}.bc6-head h2{font-size:60px;line-height:.85;letter-spacing:-.06em;margin:0}.bc6-head p{font-size:13px;line-height:1.8;max-width:600px}
+.signal-room{display:grid;grid-template-columns:1.3fr .7fr;gap:3px;background:#111820;border:3px solid #111820}.signal-main{background:#fff;padding:23px}.signal-kpis{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid #aeb7c1;padding-bottom:16px}.signal-kpi b{font:800 42px/1 "Courier New",monospace;display:block}.signal-kpi span{font-size:10px;letter-spacing:.1em;color:#687483}.broadcast-chart{height:190px;margin-top:18px}.signal-side{background:#1025cd;color:#fff;padding:24px;display:flex;flex-direction:column;justify-content:space-between}.signal-side .pulse{font:700 11px "Courier New",monospace;color:#ffef36}.signal-side h3{font-size:27px;line-height:1.05}.signal-side p{font-size:12px;line-height:1.75;color:#dce2ff}.signal-side button{border:0;background:#ffef36;padding:11px;font-weight:900}
+
+/* E — DATA CONSTELLATION */
+#vE{background:#f5f7f8;color:#14212b;padding:68px 4vw 125px;background-image:radial-gradient(#afbeca 1px,transparent 1px);background-size:26px 26px}
+.nt-head{display:flex;justify-content:space-between;align-items:flex-start}.nt-logo{font-size:24px;font-weight:900}.nt-head .sys{font:11px/1.7 "Courier New",monospace;color:#61717d;text-align:right}
+.nt5{position:relative;height:610px;margin-top:18px;border:1px solid #b9c6ce;background:#f9fbfbcf;overflow:hidden}.nt5 h1{position:absolute;left:34px;top:26px;z-index:5;font-size:clamp(42px,6vw,82px);line-height:.92;letter-spacing:-.06em;margin:0}.nt5 .hint{position:absolute;left:38px;bottom:30px;font:11px "Courier New",monospace;color:#647581}.nt5 svg{position:absolute;inset:0;width:100%;height:100%}
+.node{position:absolute;z-index:4;border:1px solid #94a5b0;background:#ffffffdb;backdrop-filter:blur(12px);box-shadow:0 18px 42px #59707d1c;padding:16px}.node .port{font:700 9px "Courier New",monospace;color:#007f92}.node h3{font-size:16px;margin:10px 0}.node p{font-size:10px;line-height:1.6;color:#60717c}.node .packet{margin-top:12px;height:4px;background:#e4eaed;position:relative}.node .packet:after{content:"";position:absolute;left:0;top:0;height:100%;width:78%;background:linear-gradient(90deg,#00a9bd,#ff4aa2)}.n-source{left:38%;top:45%;width:180px}.n-wx{right:28%;top:16%;width:180px}.n-wb{right:8%;top:42%;width:180px}.n-video{right:29%;bottom:8%;width:180px}.node-dot{position:absolute;width:12px;height:12px;border-radius:50%;background:#ff4aa2;box-shadow:0 0 0 7px #ff4aa222;z-index:6}
+.nt6{display:grid;grid-template-columns:.7fr 1.3fr;margin-top:30px;min-height:470px;border:1px solid #b9c6ce;background:#f9fbfbd9}.nt-report{padding:32px;border-right:1px solid #b9c6ce;display:flex;flex-direction:column;justify-content:space-between}.nt-report .id{font:700 11px "Courier New",monospace;color:#007f92}.nt-report h2{font-size:45px;line-height:.95;letter-spacing:-.055em}.nt-report p{font-size:12px;line-height:1.8;color:#5f707c}.nt-report button{align-self:flex-start;border:1px solid #14212b;background:none;padding:11px 14px;font:700 10px "Courier New",monospace}
+.radar{position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;background:radial-gradient(circle,#fff 0,#edf4f4 55%,#e5edf0)}.rings{width:390px;height:390px;border:1px solid #91aeb2;border-radius:50%;position:relative}.rings:before,.rings:after{content:"";position:absolute;border:1px solid #b2c5c8;border-radius:50%;inset:16%}.rings:after{inset:33%}.radar-line{position:absolute;width:50%;height:50%;right:50%;bottom:50%;transform-origin:100% 100%;background:conic-gradient(from 74deg,transparent,#00a9bd44);animation:sweep 5s linear infinite}@keyframes sweep{to{transform:rotate(360deg)}}.r-kpi{position:absolute;background:#fff;border:1px solid #a8bbc1;padding:8px 12px;font:700 18px "Courier New",monospace}.rk1{right:-35px;top:85px}.rk2{left:-42px;bottom:105px}.rk3{right:25px;bottom:20px}.r-center{position:absolute;inset:38%;border-radius:50%;background:#14212b;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;font:700 10px/1.5 "Courier New",monospace}
+
+/* F — KINETIC MEDIA COLLAGE */
+#vF{background:#f2efe8;color:#101010;padding:65px 3vw 125px;overflow:hidden}
+.km-head{display:grid;grid-template-columns:1fr auto;align-items:center;border-bottom:5px solid #101010;padding-bottom:9px}.km-brand{font-size:28px;font-weight:1000;letter-spacing:-.04em}.km-code{font:700 11px "Courier New",monospace}
+.km5{position:relative;height:610px;margin-top:18px;background:#ffed00;overflow:hidden;border:3px solid #101010}.km-title{position:absolute;left:2.5%;top:2%;z-index:8;font-size:clamp(60px,10vw,145px);line-height:.74;letter-spacing:-.085em;font-weight:1000;text-transform:uppercase}.km-title .outline{-webkit-text-stroke:2px #101010;color:transparent}.km-band{position:absolute;left:-2%;right:-2%;top:48%;height:72px;background:#ff3aa7;transform:rotate(-4deg);border:3px solid #101010;z-index:4;overflow:hidden;white-space:nowrap;font:900 25px/66px "Courier New",monospace}.km-band span{display:inline-block;animation:ticker 12s linear infinite}
+.km-frame{position:absolute;background:#fff;border:3px solid #101010;box-shadow:8px 8px 0 #101010;padding:12px;z-index:5}.km-frame h3{font-size:12px;margin:0 0 10px}.km-frame p{font-size:10px;line-height:1.6}.kf1{width:215px;height:250px;right:31%;bottom:25px;transform:rotate(-7deg)}.kf2{width:215px;height:235px;right:13%;bottom:55px;transform:rotate(5deg);background:#00d7ff}.kf3{width:205px;height:220px;right:2%;top:42px;transform:rotate(9deg);background:#101010;color:#fff}.km-cta{position:absolute;left:4%;bottom:45px;z-index:8;border:3px solid #101010;background:#fff;padding:13px 20px;font-weight:1000;box-shadow:5px 5px 0 #101010}
+.km6{margin-top:24px;display:grid;grid-template-columns:1.2fr .8fr;gap:18px}.km-data{border:3px solid #101010;background:#fff;padding:23px;position:relative}.km-data h2{font-size:58px;line-height:.85;letter-spacing:-.07em;margin:0 0 25px}.km-kpis{display:flex;border-top:3px solid #101010;border-bottom:3px solid #101010}.km-kpi{flex:1;padding:13px;border-right:3px solid #101010}.km-kpi:last-child{border:0}.km-kpi b{font-size:36px}.km-kpi span{display:block;font:700 9px "Courier New",monospace}.km-chart{height:150px;margin-top:15px;background:repeating-linear-gradient(0deg,transparent,transparent 29px,#ddd 30px)}
+.km-next{border:3px solid #101010;background:#00d7ff;padding:24px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:9px 9px 0 #101010}.km-next .tag{align-self:flex-start;background:#ff3aa7;padding:5px 9px;border:2px solid #101010;font:900 10px "Courier New",monospace;transform:rotate(-3deg)}.km-next h3{font-size:37px;line-height:.95;letter-spacing:-.05em}.km-next p{font-size:12px;line-height:1.7}.km-next button{align-self:flex-start;border:3px solid #101010;background:#ffed00;padding:11px 15px;font-weight:1000}
+</style>
+</head>
+<body>
+<div class="proto-note">PROTOTYPE / THROWAWAY / A5+A6</div>
+
+<main id="vA" class="variant">
+  <header class="fa-head">
+    <div><div class="eyebrow">Direction 01 / Digital Fashion Editorial</div><h1>From story<br>to <em>everywhere.</em></h1></div>
+    <div class="edition">A5 / A6<br>Digital edition</div>
+  </header>
+  <section class="fa5">
+    <div class="fa-copy">
+      <div><div class="eyebrow">A5 · DISTRIBUTION</div><div class="big serif">一篇稿件，<br><em>三种姿态。</em></div></div>
+      <div><p>不把渠道做成后台卡片，而是做成一组具有时尚大片感的“媒介物件”。每块屏幕都有自己的姿态和材质。</p><button class="fa-action">一键适配全平台 <span>↗</span></button></div>
+    </div>
+    <div class="fa-stage">
+      <article class="device one"><div class="dev-top">WECHAT / READY</div><div class="dev-body"><h3>你的咖啡，正在天上飞</h3><div class="dev-img"></div><p>午后两点，福田区一栋写字楼的天台停机坪……</p></div></article>
+      <article class="device two"><div class="dev-top">WEIBO / 136</div><div class="dev-body"><h3>低空外卖，日均 1.2 万单</h3><p>132 条航线、89 个社区园区、平均 12 分钟送达。#低空经济#</p><div class="dev-img"></div></div></article>
+      <article class="device three"><div class="dev-top">VIDEO SCRIPT / 00:24</div><div class="dev-body"><div class="dev-img"></div><h3>“你的咖啡，可能正在天上飞。”</h3><p>镜 01 / 无人机降落特写<br>镜 02 / 城市天际线与数字</p></div></article>
+    </div>
+  </section>
+  <section class="fa6">
+    <div class="fa6-title"><h2>A story<br>in motion.</h2><p>A6 不像数据后台，而像一本数字杂志的传播复盘专题：数字就是标题，图表就是摄影。</p></div>
+    <div class="fa-stats"><div class="fa-stat"><b>96.4万</b><span>DOUYIN PLAY</span></div><div class="fa-stat"><b>182万</b><span>WEIBO REACH</span></div><div class="fa-stat"><b>52,418</b><span>WECHAT READ</span></div></div>
+    <div class="fa-insight"><div class="fa-chart"><svg viewBox="0 0 700 160" preserveAspectRatio="none"><polyline points="0,145 60,136 120,118 180,105 240,91 300,86 360,62 420,35 480,24 540,18 600,12 680,8" fill="none" stroke="#171717" stroke-width="3"/><circle cx="360" cy="62" r="6" fill="#d13a24"/></svg></div><aside class="fa-note">“公众的注意力，正在从新奇体验转向安全与秩序。”</aside></div>
+  </section>
+</main>
+
+<main id="vB" class="variant">
+  <header class="sw-head"><div class="sw-mark">ZM</div><h1>Zhimei Newsroom / Distribution + Insights</h1><div class="meta">GRID 12<br>TYPE 900<br>ACCENT #145CFF</div></header>
+  <section class="sw5">
+    <aside class="sw-index"><b>05</b><span>DISTRIBUTION SYSTEM</span></aside>
+    <div class="sw-main">
+      <h1 class="sw-title">ONE STORY<br><i>THREE FORMS</i></h1>
+      <div class="sw-channels">
+        <article class="sw-channel"><h3>01 / WECHAT</h3><p>你的咖啡，正在天上飞。日均约 1.2 万单，132 条航线覆盖 89 个社区与产业园。</p><div class="ready">READY ↗</div><div class="n">1</div></article>
+        <article class="sw-channel"><h3>02 / WEIBO</h3><p>低空外卖日均 1.2 万单。你会为一杯“空投咖啡”下单吗？</p><div class="ready">136 / 140</div><div class="n">2</div></article>
+        <article class="sw-channel"><h3>03 / VIDEO</h3><p>镜 01 — 无人机降落<br>镜 02 — 数字弹出<br>镜 03 — 安全设备</p><div class="ready">00:24 / READY</div><div class="n">3</div></article>
+      </div>
+    </div>
+  </section>
+  <section class="sw6">
+    <aside class="sw-index"><b>06</b><span>IMPACT ANALYSIS</span></aside>
+    <div class="sw6-content">
+      <div class="sw-datahead"><div class="sw-kpi"><b>96.4万</b><span>VIDEO PLAY</span></div><div class="sw-kpi"><b>182万</b><span>SOCIAL REACH</span></div><div class="sw-kpi"><b>17%</b><span>SAFETY KEYWORDS</span></div></div>
+      <div class="sw-grid"><div class="sw-chart"><div class="axis">24H / CUMULATIVE EXPOSURE</div><svg viewBox="0 0 700 190" width="100%" height="100%" preserveAspectRatio="none"><polyline points="0,170 60,160 120,145 180,133 240,112 300,105 360,72 420,38 480,26 540,18 600,11 680,7" fill="none" stroke="#145cff" stroke-width="5"/></svg></div><aside class="sw-report"><h3>NEXT<br>STORY</h3><p>评论区“安全 / 坠机 / 噪音 / 监管”高频出现。建议追踪：谁来为天空立规矩？</p><button>送回选题池 →</button></aside></div>
+    </div>
+  </section>
+</main>
+
+<main id="vC" class="variant">
+  <header class="sp-head"><div class="sp-logo">智媒编辑部</div><div class="crumb">A4 审校完成　/　A5 分发　/　A6 洞察</div></header>
+  <section class="sp5">
+    <div class="sp-orb orb1"></div><div class="sp-orb orb2"></div>
+    <div class="sp-copy"><div class="num">05 — Distribution</div><h1>让一篇报道，<br>拥有三种身体。</h1><p>平台版本不是三个平铺卡片，而是漂浮在媒体空间中的三个内容窗口。视觉重心从“操作后台”转向“内容正在穿越媒介”。</p><button>生成全渠道版本　↗</button></div>
+    <article class="float-window fw1"><div class="fw-head"><span>公众号</span><span>READY</span></div><div class="fw-body"><h3>你的咖啡，正在天上飞</h3><div class="fw-photo"></div><p>午后两点，福田区一栋写字楼的天台停机坪……</p></div></article>
+    <article class="float-window fw2"><div class="fw-head"><span>微博</span><span>136 / 140</span></div><div class="fw-body"><h3>日均 1.2 万单的“空投咖啡”</h3><p>132 条航线、89 个社区园区。你会下单吗？</p><div class="fw-photo"></div></div></article>
+    <article class="float-window fw3"><div class="fw-head"><span>短视频脚本</span><span>00:24</span></div><div class="fw-body"><div class="fw-photo"></div><h3>“你的咖啡，可能正在天上飞。”</h3><p>镜 01 · 无人机降落<br>镜 02 · 城市天际线<br>镜 03 · 12 分钟送达</p></div></article>
+  </section>
+  <section class="sp6">
+    <div class="eyebrow">06 — Impact Space</div><h2>传播不是终点，<br>而是下一条新闻的入口。</h2>
+    <div class="sp-dashboard">
+      <div class="sp-glass"><div class="sp-kpis"><div class="sp-kpi"><b>96.4万</b><span>抖音播放</span></div><div class="sp-kpi"><b>182万</b><span>微博曝光</span></div><div class="sp-kpi"><b>52,418</b><span>公众号阅读</span></div></div><div class="sp-chart"><svg viewBox="0 0 700 170" width="100%" height="100%" preserveAspectRatio="none"><defs><linearGradient id="spg"><stop stop-color="#83e2d2"/><stop offset="1" stop-color="#7768d8"/></linearGradient></defs><polyline points="0,155 60,146 120,130 180,120 240,102 300,97 360,70 420,40 480,28 540,20 600,13 680,8" fill="none" stroke="url(#spg)" stroke-width="5"/></svg></div></div>
+      <aside class="sp-glass sp-ai"><div class="spark"></div><h3>公众关切已从“新奇”迁移至“安全与秩序”。</h3><p>安全、坠机、噪音、监管等关键词占评论 17%。建议追踪《低空物流安全监管》。</p><button>送回热点雷达 →</button></aside>
+    </div>
+  </section>
+</main>
+
+<main id="vD" class="variant">
+  <header class="bc-head"><div class="bc-brand"><span class="bc-live">ON AIR</span> ZHIMEI MEDIA CENTER</div><div class="bc-time">20:42:16 / CST</div></header>
+  <section class="bc5">
+    <div class="bc-brief"><div><div class="id">A5 / MULTI-CHANNEL OUTPUT</div><h1>同一现场，<br>多路播出。</h1><p>将分发页变成融媒体演播室：中央监看墙展示不同渠道的节目形态，字幕跑马灯持续播报状态。</p></div><button>TAKE ALL CHANNELS →</button></div>
+    <div class="media-wall">
+      <article class="monitor video"><div class="scene"></div><div class="caption">“你的咖啡，可能正在天上飞。”</div></article>
+      <article class="monitor"><span class="channel">FEED 01 / WECHAT</span><span class="status">● READY</span><h3>你的咖啡，正在天上飞</h3><p>深度图文版 · 约 850 字 · 2 张配图</p></article>
+      <article class="monitor"><span class="channel">FEED 02 / WEIBO</span><span class="status">● READY</span><h3>日均 1.2 万单的“空投咖啡”</h3><p>短讯版 · 136 / 140 字 · 2 个话题</p></article>
+    </div>
+  </section>
+  <div class="ticker"><span>WECHAT READY　◆　WEIBO READY　◆　VIDEO SCRIPT 00:24　◆　ENGLISH EDITION STANDBY　◆　WECHAT READY　◆　WEIBO READY　◆　</span></div>
+  <section class="bc6"><div class="bc6-head"><h2>信号<br>回传</h2><p>A6 是“收视信号室”：不是安静的报告，而是实时感知全网回响。传播曲线像直播波形，AI 负责从噪声里辨认下一条新闻。</p></div>
+    <div class="signal-room"><div class="signal-main"><div class="signal-kpis"><div class="signal-kpi"><b>96.4万</b><span>VIDEO PLAY</span></div><div class="signal-kpi"><b>182万</b><span>SOCIAL REACH</span></div><div class="signal-kpi"><b>17%</b><span>SAFETY SIGNAL</span></div></div><div class="broadcast-chart"><svg viewBox="0 0 700 190" width="100%" height="100%" preserveAspectRatio="none"><polyline points="0,165 60,158 120,142 180,130 240,114 300,108 360,73 420,39 480,28 540,19 600,12 680,7" fill="none" stroke="#1025cd" stroke-width="5"/></svg></div></div><aside class="signal-side"><div class="pulse">● AI SIGNAL DETECTED</div><h3>公众关切从“新奇”迁移到了“安全”。</h3><p>安全、坠机、噪音、监管关键词占比 17%。</p><button>NEXT STORY →</button></aside></div>
+  </section>
+</main>
+
+<main id="vE" class="variant">
+  <header class="nt-head"><div class="nt-logo">智媒网络场 / ZM—NET</div><div class="sys">SYSTEM ONLINE<br>PACKETS 03 / 03<br>LATENCY 0.42S</div></header>
+  <section class="nt5">
+    <h1>内容不是复制，<br>而是在网络中重新编码。</h1><div class="hint">A5 / CONTENT ROUTING MAP · 拖动视线沿连接线观察内容流向</div>
+    <svg viewBox="0 0 1200 610" preserveAspectRatio="none"><path d="M540 330 C680 330 690 125 850 125" fill="none" stroke="#00a9bd" stroke-width="2"/><path d="M540 330 C720 330 795 315 1010 315" fill="none" stroke="#ff4aa2" stroke-width="2"/><path d="M540 330 C700 345 710 520 850 520" fill="none" stroke="#705cff" stroke-width="2"/><circle cx="650" cy="285" r="5" fill="#00a9bd"/><circle cx="760" cy="325" r="5" fill="#ff4aa2"/><circle cx="682" cy="407" r="5" fill="#705cff"/></svg>
+    <article class="node n-source"><div class="port">SOURCE / SIGNED</div><h3>你的咖啡，正在天上飞</h3><p>签发稿 · 王一舟 · 850 字</p><div class="packet"></div></article>
+    <article class="node n-wx"><div class="port">NODE 01 / WECHAT</div><h3>深度图文</h3><p>2 张配图 · 3 个小标题</p></article>
+    <article class="node n-wb"><div class="port">NODE 02 / WEIBO</div><h3>短讯传播</h3><p>136 字 · #低空经济#</p></article>
+    <article class="node n-video"><div class="port">NODE 03 / VIDEO</div><h3>视听脚本</h3><p>5 镜 · 00:24 · 口播</p></article>
+  </section>
+  <section class="nt6"><aside class="nt-report"><div><div class="id">A6 / SIGNAL FIELD</div><h2>数据是受众留下的足迹。</h2></div><p>雷达不表示“监控”，而表示从海量信号中寻找公共议题。三个传播节点最终汇入同一圈层，并生成下一条选题。</p><button>ROUTE TO TOPIC POOL →</button></aside><div class="radar"><div class="rings"><div class="radar-line"></div><div class="r-kpi rk1">96.4万<small> PLAY</small></div><div class="r-kpi rk2">182万<small> REACH</small></div><div class="r-kpi rk3">17%<small> SAFETY</small></div><div class="r-center">NEXT SIGNAL<br>安全监管</div></div></div></section>
+</main>
+
+<main id="vF" class="variant">
+  <header class="km-head"><div class="km-brand">ZHIMEI / MOVING MEDIA</div><div class="km-code">A5—A6 / CUT 04 / 2026</div></header>
+  <section class="km5">
+    <div class="km-title">ONE STORY<br><span class="outline">EVERY SCREEN</span></div>
+    <div class="km-band"><span>公众号 READY　✦　微博 136/140　✦　短视频 00:24　✦　公众号 READY　✦　微博 136/140　✦　短视频 00:24　✦　</span></div>
+    <article class="km-frame kf1"><h3>WECHAT / 01</h3><p><b>你的咖啡，正在天上飞</b><br><br>午后两点，福田区写字楼天台，一杯拿铁从空中抵达……</p></article>
+    <article class="km-frame kf2"><h3>WEIBO / 02</h3><p><b>日均 1.2 万单</b><br><br>132 条航线、89 个社区园区。你会为“空投咖啡”下单吗？</p></article>
+    <article class="km-frame kf3"><h3>VIDEO / 03</h3><p><b>00:00 — 00:24</b><br><br>镜 01 无人机降落<br>镜 02 城市天际线<br>镜 03 安全系统</p></article>
+    <button class="km-cta">一键适配 / TAKE 03 →</button>
+  </section>
+  <section class="km6"><div class="km-data"><h2>ATTENTION<br>IS MOVING.</h2><div class="km-kpis"><div class="km-kpi"><b>96.4万</b><span>VIDEO</span></div><div class="km-kpi"><b>182万</b><span>SOCIAL</span></div><div class="km-kpi"><b>17%</b><span>SAFETY</span></div></div><div class="km-chart"><svg viewBox="0 0 700 150" width="100%" height="100%" preserveAspectRatio="none"><polyline points="0,140 60,132 120,115 180,105 240,90 300,84 360,60 420,32 480,22 540,15 600,9 680,5" fill="none" stroke="#ff3aa7" stroke-width="7"/></svg></div></div><aside class="km-next"><span class="tag">AI FOUND A SIGNAL</span><h3>“谁来为天空立规矩？”</h3><p>评论区的注意力已从新奇体验转向安全、噪音与监管。</p><button>剪入下一条选题 →</button></aside></section>
+</main>
+
+<nav class="switcher" aria-label="原型方案切换">
+  <button id="prev" aria-label="上一方案">←</button>
+  <div id="label" class="label"></div>
+  <button id="next" aria-label="下一方案">→</button>
+</nav>
+<script>
+const variants=[
+  {key:"C",name:"空间媒体展陈（保留）"},
+  {key:"D",name:"广播融媒演播室"},
+  {key:"E",name:"数据网络场"},
+  {key:"F",name:"动态媒体拼贴"}
+];
+function current(){const v=new URLSearchParams(location.search).get("variant")||"C";return Math.max(0,variants.findIndex(x=>x.key===v))}
+function show(i,replace=true){const item=variants[(i+variants.length)%variants.length];document.querySelectorAll(".variant").forEach(x=>x.classList.remove("active"));document.querySelector("#v"+item.key).classList.add("active");document.querySelector("#label").textContent=item.key+" — "+item.name;if(replace){const u=new URL(location.href);u.searchParams.set("variant",item.key);history.replaceState(null,"",u)}window.scrollTo({top:0,behavior:"instant"})}
+document.querySelector("#prev").onclick=()=>show(current()-1);
+document.querySelector("#next").onclick=()=>show(current()+1);
+addEventListener("keydown",e=>{if(["INPUT","TEXTAREA"].includes(document.activeElement.tagName)||document.activeElement.isContentEditable)return;if(e.key==="ArrowLeft")show(current()-1);if(e.key==="ArrowRight")show(current()+1)});
+show(current(),false);
+</script>
+</body>
+</html>

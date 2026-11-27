@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>智媒编辑部 · UI/UX 三方案总览</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; background:#111318; color:#E8EAF0; min-height:100vh; display:flex; flex-direction:column; align-items:center; padding:64px 32px; }
+  h1 { font-size:34px; letter-spacing:2px; margin-bottom:8px; }
+  .sub { color:#8A94A8; margin-bottom:56px; font-size:15px; }
+  .cards { display:flex; gap:28px; flex-wrap:wrap; justify-content:center; }
+  a.card { display:block; width:360px; border-radius:20px; overflow:hidden; text-decoration:none; color:inherit; border:1px solid #2A2F3C; transition:transform .2s, box-shadow .2s; background:#1A1E27; }
+  a.card:hover { transform:translateY(-6px); box-shadow:0 18px 50px rgba(0,0,0,.5); }
+  .thumb { height:190px; display:flex; align-items:center; justify-content:center; font-size:26px; font-weight:800; letter-spacing:3px; }
+  .thumb-a { background:#F7F5F0; color:#1A1817; font-family:Georgia,"Noto Serif SC","SimSun",serif; border-bottom:4px solid #C8102E; }
+  .thumb-a span em { color:#C8102E; font-style:normal; }
+  .thumb-b { background:radial-gradient(ellipse at 30% 20%, #16233D 0%, #0B0F1A 70%); color:#E5EAF3; }
+  .thumb-b span { background:linear-gradient(90deg,#3B82F6,#22D3EE); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .thumb-c { background:#F2F3F7; color:#16181D; }
+  .thumb-c span { background:linear-gradient(90deg,#FF5C7A,#FF9F45,#7C5CFF); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .meta { padding:22px 24px; }
+  .meta h2 { font-size:18px; margin-bottom:6px; }
+  .meta p { font-size:13px; color:#9AA3B5; line-height:1.7; }
+  .tag { display:inline-block; margin-top:12px; font-size:12px; padding:4px 12px; border-radius:999px; border:1px solid #3A4152; color:#B8C0D0; }
+</style>
+</head>
+<body>
+  <h1>智媒编辑部 · UI/UX 视觉方案</h1>
+  <div class="sub">三个方向 · 点击进入查看完整设计稿（色板 / 字体 / 模块区分逻辑 / 组件实景）</div>
+  <div class="cards">
+    <a class="card" href="方案A-铅字新闻.html">
+      <div class="thumb thumb-a"><span>铅字<em>新闻</em></span></div>
+      <div class="meta">
+        <h2>方案 A · 铅字新闻 Editorial Modern</h2>
+        <p>报刊排印复兴：纸感底色、衬线大标题、栏线网格、报头红。AI 以"编辑批注"的荧光笔形态介入，模块以"版面"隐喻区分。最具新闻专业的身份认同感。</p>
+        <span class="tag">纸感 · 衬线 · 版面隐喻</span>
+      </div>
+    </a>
+    <a class="card" href="方案B-智能主控台.html">
+      <div class="thumb thumb-b"><span>NEWSROOM OS</span></div>
+      <div class="meta">
+        <h2>方案 B · 智能主控台 Newsroom OS</h2>
+        <p>深色指挥中心：深蓝黑底、玻璃拟态卡片、青蓝渐变主脉络。六模块各持一种霓虹色相，光晕随环节流转变色。投屏冲击力最强，科技感直给。</p>
+        <span class="tag">深色 · 霓虹六色 · 大屏感</span>
+      </div>
+    </a>
+    <a class="card" href="方案C-新潮编辑部.html">
+      <div class="thumb thumb-c"><span>BENTO POP</span></div>
+      <div class="meta">
+        <h2>方案 C · 新潮编辑部 Bento Pop</h2>
+        <p>便当格新媒体风：浅底大圆角卡片拼盘、六模块高饱和渐变主题、超大号数字与胶囊标签。最接近学生一代的审美，气质年轻、传播感强。</p>
+        <span class="tag">浅色 · 渐变便当格 · 年轻化</span>
+      </div>
+    </a>
+  </div>
+</body>
+</html>

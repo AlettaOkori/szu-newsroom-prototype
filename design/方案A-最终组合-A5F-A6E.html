@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>智媒编辑部 · 最终视觉组合 A5-F / A6-E</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;background:#f4f1e9;color:#121212;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif}.serif{font-family:Georgia,"Noto Serif SC","Songti SC",SimSun,serif}.mono{font-family:"Courier New",monospace}
+.top{padding:42px 4vw 0}.mast{text-align:center;border-bottom:3px double #171717;padding-bottom:15px}.mast small{font-size:10px;letter-spacing:.28em}.mast h1{font:800 42px/1 Georgia,"Songti SC",serif;letter-spacing:.12em;margin:12px 0}.mast h1 i{color:#bd1833;font-style:normal}.date{display:flex;justify-content:space-between;border-bottom:1px solid #171717;padding:8px 0;font:11px "Courier New",monospace}
+.flow{display:grid;grid-template-columns:repeat(6,1fr);margin-top:25px;border:1px solid #171717}.step{padding:14px;border-right:1px solid #d2ccbf;background:#fffdfa}.step:last-child{border:0}.step b{font:800 23px Georgia,serif}.step span{display:block;margin-top:7px;font-size:12px;font-weight:800}.step small{font-size:9px;letter-spacing:.12em;color:#777}.step.s5{background:#ffed00}.step.s6{background:#eaf1f2}.step.s5 b,.step.s6 b{font-family:"Courier New",monospace}.step.s5{border-left:5px solid #171717}.bridge-note{padding:14px 4vw;font-size:12px;line-height:1.8;color:#5d5b57}.bridge-note b{color:#bd1833}
+
+/* A5 — KINETIC MEDIA COLLAGE */
+.a5{margin:18px 3vw 0;position:relative;height:680px;background:#ffed00;border:3px solid #101010;overflow:hidden}
+.a5 .meta{position:absolute;right:20px;top:15px;z-index:12;font:800 11px "Courier New",monospace}
+.kinetic-title{position:absolute;left:2.5%;top:3%;z-index:8;font-size:clamp(62px,10vw,150px);line-height:.74;letter-spacing:-.085em;font-weight:1000;text-transform:uppercase}.kinetic-title .outline{-webkit-text-stroke:2px #101010;color:transparent}
+.ticker{position:absolute;left:-2%;right:-2%;top:49%;height:74px;background:#ff3aa7;transform:rotate(-4deg);border:3px solid #101010;z-index:4;overflow:hidden;white-space:nowrap;font:900 25px/68px "Courier New",monospace}.ticker span{display:inline-block;animation:move 13s linear infinite}@keyframes move{to{transform:translateX(-50%)}}
+.frame{position:absolute;background:#fff;border:3px solid #101010;box-shadow:8px 8px 0 #101010;padding:13px;z-index:6}.frame h3{font:900 12px "Courier New",monospace;margin:0 0 11px}.frame p{font-size:10px;line-height:1.7}.frame .photo{height:88px;background:linear-gradient(135deg,#b5d7d4,#e4b29c);margin-bottom:10px}.f1{width:225px;height:270px;right:32%;bottom:28px;transform:rotate(-7deg)}.f2{width:220px;height:250px;right:14%;bottom:62px;transform:rotate(5deg);background:#00d7ff}.f3{width:215px;height:235px;right:2%;top:47px;transform:rotate(9deg);background:#101010;color:#fff}.f3 .photo{background:linear-gradient(135deg,#174652,#7e5ad0)}
+.cta{position:absolute;left:4%;bottom:52px;z-index:9;border:3px solid #101010;background:#fff;padding:13px 20px;font-weight:1000;box-shadow:5px 5px 0 #101010}.count{position:absolute;left:4%;top:38%;font:800 12px "Courier New",monospace;z-index:9}.stamp{position:absolute;left:38%;top:28%;z-index:7;width:88px;height:88px;border:4px solid #bd1833;border-radius:50%;color:#bd1833;display:flex;align-items:center;justify-content:center;transform:rotate(-12deg);font:900 18px Georgia,serif;letter-spacing:.15em;background:#ffed0099}
+
+/* transition */
+.transition{margin:0 3vw;height:120px;display:grid;grid-template-columns:1fr 150px 1fr;align-items:center}.transition .line{height:3px;background:#101010}.packet-zone{position:relative;height:100%}.packet-zone i{position:absolute;width:9px;height:9px;background:#ff3aa7;border:2px solid #101010;animation:packet 2.4s ease-in-out infinite}.packet-zone i:nth-child(1){left:18%;top:38%}.packet-zone i:nth-child(2){left:46%;top:55%;animation-delay:.35s;background:#00d7ff}.packet-zone i:nth-child(3){left:74%;top:33%;animation-delay:.7s;background:#ffed00}@keyframes packet{50%{transform:translateY(20px) scale(.65)}}.transition p{text-align:center;font:800 10px/1.6 "Courier New",monospace;letter-spacing:.08em}
+
+/* A6 — DATA NETWORK FIELD */
+.a6{margin:0 3vw 100px;background:#f7faf9;color:#14212b;border:1px solid #aab9c0;background-image:radial-gradient(#afbeca 1px,transparent 1px);background-size:26px 26px}
+.a6-head{display:flex;justify-content:space-between;padding:28px 32px 16px;border-bottom:1px solid #aab9c0}.a6-head h2{font-size:clamp(42px,6vw,80px);line-height:.88;letter-spacing:-.065em;margin:0}.a6-head .sys{font:11px/1.8 "Courier New",monospace;text-align:right;color:#60717c}
+.field{display:grid;grid-template-columns:1.35fr .65fr;min-height:570px}.network{position:relative;overflow:hidden;border-right:1px solid #aab9c0}.network svg{position:absolute;inset:0;width:100%;height:100%}.node{position:absolute;z-index:5;border:1px solid #93a5ad;background:#ffffffdf;backdrop-filter:blur(12px);box-shadow:0 18px 44px #55717c1d;padding:15px}.node .port{font:800 9px "Courier New",monospace;color:#007f92}.node h3{font-size:15px;margin:9px 0}.node p{font-size:10px;line-height:1.65;color:#60717c}.node .bar{height:4px;background:linear-gradient(90deg,#00a9bd 70%,#ff3aa7 70%);margin-top:12px}.source{left:6%;top:37%;width:190px}.wechat{right:7%;top:8%;width:175px}.weibo{right:4%;top:39%;width:175px}.video{right:10%;bottom:7%;width:175px}
+.signal-dot{position:absolute;z-index:7;width:10px;height:10px;border:2px solid #101010;background:#ff3aa7;box-shadow:0 0 0 8px #ff3aa722}.d1{left:49%;top:28%}.d2{left:62%;top:51%;background:#00d7ff}.d3{left:53%;bottom:25%;background:#ffed00}
+.insight{padding:27px;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(150deg,#edf5f4d9,#f8faf9e8)}.insight .id{font:800 10px "Courier New",monospace;color:#007f92}.insight .kpis{display:grid;grid-template-columns:1fr 1fr;gap:12px}.kpi{border-top:1px solid #14212b;padding-top:8px}.kpi b{font:800 29px "Courier New",monospace}.kpi span{display:block;font:8px "Courier New",monospace;letter-spacing:.1em;color:#667882}.insight h3{font:700 32px/1.05 Georgia,"Songti SC",serif;margin:20px 0}.insight p{font-size:12px;line-height:1.8;color:#546670}.next{border:1px solid #14212b;background:#14212b;color:#fff;padding:12px 14px;font:800 10px "Courier New",monospace;text-align:left}.legend{display:flex;gap:12px;font:9px "Courier New",monospace;color:#62727c}.legend i{width:8px;height:8px;display:inline-block;margin-right:4px}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="mast"><small>FINAL VISUAL COMBINATION / A5—F + A6—E</small><h1>智媒<i>编辑部</i></h1></div>
+  <div class="date"><span>纸上生产 / 数字分发 / 信号回流</span><span>第六届全国新闻传播学院院长研修班</span><span>2026</span></div>
+  <nav class="flow">
+    <div class="step"><b>A1</b><span>智能选题</span><small>EDITORIAL</small></div>
+    <div class="step"><b>A2</b><span>采访助手</span><small>INTERVIEW</small></div>
+    <div class="step"><b>A3</b><span>智能写作</span><small>WRITING</small></div>
+    <div class="step"><b>A4</b><span>智能审校</span><small>REVIEW</small></div>
+    <div class="step s5"><b>05</b><span>全渠道分发</span><small>KINETIC MEDIA</small></div>
+    <div class="step s6"><b>06</b><span>效果洞察</span><small>NETWORK FIELD</small></div>
+  </nav>
+</header>
+<div class="bridge-note"><b>视觉叙事：</b>A1—A4 保留铅字新闻体系。签发后，报纸版面被“剪辑”成动态媒体帧（A5）；发布后，媒体帧收缩成传播网络节点（A6）。青色代表内容信号，洋红代表受众反馈，黄色代表发布动作。</div>
+
+<section class="a5">
+  <div class="meta">A5 / PUBLISHING CUT / TAKE 03</div>
+  <div class="kinetic-title">ONE STORY<br><span class="outline">EVERY SCREEN</span></div>
+  <div class="count">SIGNED BY 王一舟<br>CHANNELS 03 / 03 READY</div>
+  <div class="stamp serif">签发</div>
+  <div class="ticker"><span>公众号 READY　✦　微博 136/140　✦　短视频 00:24　✦　公众号 READY　✦　微博 136/140　✦　短视频 00:24　✦　</span></div>
+  <article class="frame f1"><h3>WECHAT / FRAME 01</h3><div class="photo"></div><p><b>你的咖啡，正在天上飞</b><br>日均约 1.2 万单，132 条航线覆盖 89 个社区。</p></article>
+  <article class="frame f2"><h3>WEIBO / FRAME 02</h3><p><b>低空外卖，日均 1.2 万单</b><br><br>你会为一杯“空投咖啡”下单吗？<br>#低空经济#</p></article>
+  <article class="frame f3"><h3>VIDEO / FRAME 03</h3><div class="photo"></div><p>镜 01 · 无人机降落<br>镜 02 · 12 分钟送达<br>镜 03 · 安全系统</p></article>
+  <button class="cta">一键适配 / TAKE ALL 03 →</button>
+</section>
+
+<div class="transition"><div class="line"></div><div class="packet-zone"><p>MEDIA FRAMES<br>→ DATA PACKETS</p><i></i><i></i><i></i></div><div class="line"></div></div>
+
+<section class="a6">
+  <header class="a6-head"><h2>传播不是终点，<br>而是信号的开始。</h2><div class="sys">A6 / SIGNAL FIELD<br>PACKETS 03 / 03<br>LATENCY 0.42S<br>AI ANALYSIS ONLINE</div></header>
+  <div class="field">
+    <div class="network">
+      <svg viewBox="0 0 820 570" preserveAspectRatio="none">
+        <path d="M220 280 C390 280 470 100 650 100" fill="none" stroke="#00a9bd" stroke-width="2"/>
+        <path d="M220 280 C420 280 500 285 670 285" fill="none" stroke="#ff3aa7" stroke-width="2"/>
+        <path d="M220 280 C400 315 470 480 630 480" fill="none" stroke="#705cff" stroke-width="2"/>
+        <path d="M650 100 C540 180 550 420 630 480" fill="none" stroke="#b8c7cc" stroke-width="1" stroke-dasharray="6 7"/>
+      </svg>
+      <article class="node source"><div class="port">SOURCE / SIGNED STORY</div><h3>你的咖啡，正在天上飞</h3><p>850 字 · 王一舟签发</p><div class="bar"></div></article>
+      <article class="node wechat"><div class="port">NODE 01 / WECHAT</div><h3>52,418 阅读</h3><p>深度图文 · 11% 曝光</p></article>
+      <article class="node weibo"><div class="port">NODE 02 / WEIBO</div><h3>182 万曝光</h3><p>互动率高于均值 2.3 倍</p></article>
+      <article class="node video"><div class="port">NODE 03 / VIDEO</div><h3>96.4 万播放</h3><p>金句片段触发二次剪辑</p></article>
+      <i class="signal-dot d1"></i><i class="signal-dot d2"></i><i class="signal-dot d3"></i>
+    </div>
+    <aside class="insight">
+      <div><div class="id">AI / SIGNAL INTERPRETATION</div><h3>公众关切已从“新奇”迁移到“安全与秩序”。</h3><p>评论区“安全 / 坠机 / 噪音 / 监管”等关键词占比 17%。传播数据不只形成报告，也形成下一条新闻。</p></div>
+      <div class="kpis"><div class="kpi"><b>96.4万</b><span>VIDEO PLAY</span></div><div class="kpi"><b>182万</b><span>SOCIAL REACH</span></div><div class="kpi"><b>17%</b><span>SAFETY SIGNAL</span></div><div class="kpi"><b>25—34</b><span>CORE AUDIENCE</span></div></div>
+      <div><div class="legend"><span><i style="background:#00a9bd"></i>内容信号</span><span><i style="background:#ff3aa7"></i>受众反馈</span><span><i style="background:#ffed00;border:1px solid #111"></i>新选题</span></div><button class="next">ROUTE NEXT STORY / 送回热点雷达 →</button></div>
+    </aside>
+  </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>方案A · 铅字新闻 Editorial Modern</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --paper:#F7F5F0; --paper2:#EFEBE2; --ink:#1A1817; --ink2:#5C5852; --line:#D8D2C4;
+    --red:#C8102E; --hl:#FFE96B;
+    /* 六模块版面色 */
+    --c-m1:#C8102E; --c-m2:#B4690E; --c-m3:#1A1817; --c-m4:#8E1F2F; --c-m5:#1F5C8E; --c-m6:#2F6B3A;
+  }
+  body { background:var(--paper); color:var(--ink); font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; }
+  .serif { font-family:Georgia,"Noto Serif SC","SimSun",serif; }
+  .wrap { max-width:1200px; margin:0 auto; padding:48px 32px 96px; }
+
+  /* 报头 */
+  .masthead { text-align:center; border-bottom:3px double var(--ink); padding-bottom:20px; margin-bottom:8px; }
+  .masthead .kicker { font-size:12px; letter-spacing:6px; color:var(--ink2); margin-bottom:10px; }
+  .masthead h1 { font-size:52px; letter-spacing:8px; font-weight:900; }
+  .masthead h1 em { color:var(--red); font-style:normal; }
+  .dateline { display:flex; justify-content:space-between; font-size:12px; color:var(--ink2); border-bottom:1px solid var(--ink); padding:8px 2px; margin-bottom:40px; letter-spacing:1px; }
+
+  .concept { display:grid; grid-template-columns:2fr 1fr; gap:32px; margin-bottom:48px; }
+  .concept h2 { font-size:26px; margin-bottom:14px; }
+  .concept p { font-size:14px; line-height:2; color:var(--ink2); margin-bottom:10px; }
+  .concept .hl { background:linear-gradient(transparent 55%, var(--hl) 55%); color:var(--ink); font-weight:600; }
+  .spec { border:1px solid var(--ink); padding:20px; font-size:13px; line-height:2.1; background:#FDFCF9; }
+  .spec b { display:block; border-bottom:1px solid var(--line); margin-bottom:8px; padding-bottom:6px; letter-spacing:2px; }
+
+  .sec-title { font-size:13px; letter-spacing:4px; color:var(--ink2); border-top:1px solid var(--ink); padding-top:10px; margin:44px 0 20px; display:flex; justify-content:space-between; }
+
+  /* 色板 */
+  .palette { display:flex; gap:0; border:1px solid var(--ink); }
+  .sw { flex:1; height:96px; position:relative; }
+  .sw span { position:absolute; bottom:6px; left:8px; font-size:11px; letter-spacing:1px; }
+  .sw.light span { color:var(--ink2); }
+  .sw.dark span { color:#fff; opacity:.9; }
+
+  /* 模块版面条 */
+  .sections { display:grid; grid-template-columns:repeat(6,1fr); border:1px solid var(--ink); }
+  .sec { padding:16px 12px 14px; border-right:1px solid var(--line); background:#FDFCF9; }
+  .sec:last-child { border-right:none; }
+  .sec .page { font-family:Georgia,serif; font-size:22px; font-weight:900; }
+  .sec .bar { height:4px; margin:8px 0; }
+  .sec .name { font-size:13px; font-weight:700; }
+  .sec .en { font-size:10px; color:var(--ink2); letter-spacing:1px; }
+
+  /* 步骤条示例 */
+  .stepbar { display:flex; align-items:center; gap:0; border:1px solid var(--ink); background:#FDFCF9; padding:18px 24px; }
+  .step { display:flex; align-items:center; gap:10px; }
+  .step .no { font-family:Georgia,serif; font-size:20px; font-weight:900; color:var(--line); }
+  .step .lbl { font-size:14px; color:var(--ink2); letter-spacing:2px; }
+  .step.done .no, .step.done .lbl { color:var(--ink); }
+  .step.cur .no { color:var(--red); }
+  .step.cur .lbl { color:var(--ink); font-weight:800; border-bottom:3px solid var(--red); padding-bottom:2px; }
+  .conn { width:52px; height:1px; background:var(--ink); margin:0 14px; opacity:.35; }
+  .step.done + .conn { opacity:1; }
+
+  /* 组件区 */
+  .comps { display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+  .comp-label { font-size:11px; letter-spacing:3px; color:var(--ink2); margin-bottom:10px; }
+
+  /* 热点卡（M1） */
+  .hotcard { border:1px solid var(--ink); background:#FDFCF9; padding:20px 22px; display:flex; gap:18px; align-items:flex-start; position:relative; }
+  .hotcard .heat { font-family:Georgia,serif; font-size:44px; font-weight:900; color:var(--red); line-height:1; }
+  .hotcard .heat small { display:block; font-size:10px; color:var(--ink2); letter-spacing:2px; font-family:-apple-system,"Microsoft YaHei",sans-serif; }
+  .hotcard h3 { font-size:19px; margin-bottom:8px; }
+  .hotcard .tags span { font-size:11px; border:1px solid var(--line); padding:2px 10px; margin-right:6px; color:var(--ink2); }
+  .hotcard .corner { position:absolute; top:0; right:0; background:var(--red); color:#fff; font-size:10px; padding:3px 10px; letter-spacing:2px; }
+  .spark { margin-left:auto; align-self:center; }
+
+  /* 审校卡（M4） */
+  .issue { border:1px solid var(--ink); background:#FDFCF9; }
+  .issue .head { display:flex; align-items:center; gap:10px; padding:12px 18px; border-bottom:1px solid var(--line); }
+  .badge-high { background:var(--red); color:#fff; font-size:11px; padding:3px 10px; letter-spacing:2px; }
+  .issue .type { font-size:13px; font-weight:800; letter-spacing:1px; }
+  .issue .body { padding:16px 18px; font-size:14px; line-height:1.9; }
+  .issue .quote { background:var(--paper2); border-left:3px solid var(--ink); padding:10px 14px; margin-bottom:12px; font-family:Georgia,"Noto Serif SC",serif; }
+  .issue .quote mark { background:var(--hl); padding:0 3px; font-weight:700; }
+  .issue .fix { color:var(--ink); margin-bottom:14px; }
+  .issue .fix b { color:#2F6B3A; }
+  .btn-row { display:flex; gap:12px; padding:0 18px 18px; }
+  .btn { font-size:13px; padding:9px 22px; cursor:pointer; letter-spacing:2px; border:1px solid var(--ink); background:#FDFCF9; color:var(--ink); }
+  .btn.primary { background:var(--ink); color:var(--paper); }
+  .btn.primary:hover { background:var(--red); border-color:var(--red); }
+
+  /* 稿件段落示例（M3） */
+  .draft { border:1px solid var(--ink); background:#FDFCF9; padding:28px 32px; }
+  .draft h3 { font-family:Georgia,"Noto Serif SC",serif; font-size:26px; margin-bottom:6px; }
+  .draft .byline { font-size:12px; color:var(--ink2); letter-spacing:2px; border-bottom:1px solid var(--line); padding-bottom:12px; margin-bottom:16px; }
+  .draft p { font-family:Georgia,"Noto Serif SC",serif; font-size:16px; line-height:2.1; text-indent:2em; }
+  .draft .src { border-bottom:2px dotted var(--red); cursor:pointer; }
+  .ai-note { margin-top:14px; background:var(--hl); display:inline-block; padding:6px 14px; font-size:12px; transform:rotate(-.6deg); box-shadow:2px 3px 0 rgba(26,24,23,.15); }
+
+  /* 手机壳（M5） */
+  .shells { display:flex; gap:20px; }
+  .shell { width:150px; border:2px solid var(--ink); border-radius:18px; background:#FDFCF9; padding:14px 10px; font-size:9px; }
+  .shell .plat { font-size:10px; font-weight:800; letter-spacing:2px; border-bottom:1px solid var(--line); padding-bottom:5px; margin-bottom:7px; display:flex; justify-content:space-between; }
+  .shell .plat i { font-style:normal; color:var(--red); }
+  .shell h4 { font-family:Georgia,"Noto Serif SC",serif; font-size:11px; margin-bottom:5px; }
+  .shell p { color:var(--ink2); line-height:1.7; }
+  .shell .imgph { background:var(--paper2); height:36px; margin:6px 0; display:flex; align-items:center; justify-content:center; color:var(--ink2); }
+
+  .footer-note { margin-top:56px; border-top:3px double var(--ink); padding-top:14px; font-size:12px; color:var(--ink2); display:flex; justify-content:space-between; letter-spacing:1px; }
+  a.back { color:var(--red); text-decoration:none; font-size:13px; letter-spacing:2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">← 返回方案总览</a>
+  <div class="masthead" style="margin-top:18px;">
+    <div class="kicker">UI / UX PROPOSAL — A</div>
+    <h1 class="serif">铅字<em>新闻</em></h1>
+  </div>
+  <div class="dateline serif"><span>EDITORIAL MODERN · 报刊排印复兴</span><span>智媒编辑部 演示原型</span><span>VOL.01 · 2026</span></div>
+
+  <div class="concept">
+    <div>
+      <h2 class="serif">设计概念：把工作台排成一张现代报纸</h2>
+      <p>全球新闻设计正在经历一场<span class="hl">衬线复兴与纸感回归</span>——NYT、《经济学人》的数字产品都在用排印传统对抗信息流的廉价感。本方案将编辑部工作台排成一张"活的报纸"：暖白纸底、栏线网格、衬线大标题、报头红点缀。</p>
+      <p>AI 的介入形式是本方案的点睛：所有 AI 输出以<span class="hl">"编辑批注"的荧光笔与铅笔注记形态</span>出现在版面上——AI 不是界面的主人，而是一支递到记者手里的笔。这与"人主导、AI 辅助"的产品立场天然同构。</p>
+      <p><b>模块区分逻辑（版面隐喻）</b>：六个模块 = 报纸的六个版面（A1 选题版 / A2 采访版 / A3 写作版 / A4 审校版 / A5 分发版 / A6 洞察版），每版持有一个印刷专色作为栏线与角标色；<b>继承性</b>来自贯穿全部版面的纸底、栏线网格、衬线标题体系与报头红。</p>
+    </div>
+    <div class="spec">
+      <b>设计 TOKENS</b>
+      纸底 #F7F5F0 · 油墨黑 #1A1817<br>
+      报头红 #C8102E · 荧光批注 #FFE96B<br>
+      标题：衬线（Georgia / 思源宋体）<br>
+      正文：无衬线系统栈<br>
+      圆角：0-4px（印刷直角感）<br>
+      分割：1px 栏线 + 3px 双线大分隔<br>
+      动效：纸张翻页 / 印章盖落 / 荧光笔划过
+    </div>
+  </div>
+
+  <div class="sec-title"><span>色板 PALETTE</span><span>印刷四原色逻辑：纸、墨、专色、批注</span></div>
+  <div class="palette">
+    <div class="sw light" style="background:#F7F5F0;"><span>纸底 F7F5F0</span></div>
+    <div class="sw light" style="background:#EFEBE2;"><span>纸影 EFEBE2</span></div>
+    <div class="sw dark" style="background:#1A1817;"><span>油墨 1A1817</span></div>
+    <div class="sw dark" style="background:#C8102E;"><span>报头红 C8102E</span></div>
+    <div class="sw light" style="background:#FFE96B;"><span>荧光批注 FFE96B</span></div>
+    <div class="sw dark" style="background:#1F5C8E;"><span>链接蓝 1F5C8E</span></div>
+    <div class="sw dark" style="background:#2F6B3A;"><span>核实绿 2F6B3A</span></div>
+  </div>
+
+  <div class="sec-title"><span>六模块 · 版面色系统</span><span>区分：版号+专色 / 继承：纸底+栏线+衬线</span></div>
+  <div class="sections">
+    <div class="sec"><div class="page serif" style="color:var(--c-m1)">A1</div><div class="bar" style="background:var(--c-m1)"></div><div class="name">智能选题</div><div class="en">TOPICS</div></div>
+    <div class="sec"><div class="page serif" style="color:var(--c-m2)">A2</div><div class="bar" style="background:var(--c-m2)"></div><div class="name">采访助手</div><div class="en">INTERVIEW</div></div>
+    <div class="sec"><div class="page serif" style="color:var(--c-m3)">A3</div><div class="bar" style="background:var(--c-m3)"></div><div class="name">智能写作台</div><div class="en">WRITING</div></div>
+    <div class="sec"><div class="page serif" style="color:var(--c-m4)">A4</div><div class="bar" style="background:var(--c-m4)"></div><div class="name">智能审校</div><div class="en">REVIEW</div></div>
+    <div class="sec"><div class="page serif" style="color:var(--c-m5)">A5</div><div class="bar" style="background:var(--c-m5)"></div><div class="name">全渠道分发</div><div class="en">PUBLISH</div></div>
+    <div class="sec"><div class="page serif" style="color:var(--c-m6)">A6</div><div class="bar" style="background:var(--c-m6)"></div><div class="name">效果洞察</div><div class="en">INSIGHTS</div></div>
+  </div>
+
+  <div class="sec-title"><span>全局步骤条 · 实景</span><span>版号导航：像翻一份报纸</span></div>
+  <div class="stepbar">
+    <div class="step done"><span class="no serif">A1</span><span class="lbl">选题</span></div><div class="conn"></div>
+    <div class="step done"><span class="no serif">A2</span><span class="lbl">采访</span></div><div class="conn"></div>
+    <div class="step cur"><span class="no serif">A3</span><span class="lbl">写作</span></div><div class="conn"></div>
+    <div class="step"><span class="no serif">A4</span><span class="lbl">审校</span></div><div class="conn"></div>
+    <div class="step"><span class="no serif">A5</span><span class="lbl">分发</span></div><div class="conn"></div>
+    <div class="step"><span class="no serif">A6</span><span class="lbl">洞察</span></div>
+  </div>
+
+  <div class="sec-title"><span>关键组件 · 实景渲染</span><span>M1 热点卡 / M4 审校卡 / M3 稿件区 / M5 手机壳</span></div>
+  <div class="comps">
+    <div>
+      <div class="comp-label">M1 · 热点雷达条目（版面头条样式）</div>
+      <div class="hotcard">
+        <div class="heat serif">92<small>热度</small></div>
+        <div>
+          <h3 class="serif">低空经济再提速：深圳无人机外卖配送单量激增</h3>
+          <div class="tags"><span>微博热搜</span><span>本地论坛</span><span>短视频</span></div>
+        </div>
+        <svg class="spark" width="80" height="30"><polyline points="0,26 11,22 22,18 33,16 44,11 55,7 66,4 78,1" fill="none" stroke="#C8102E" stroke-width="2"/></svg>
+        <div class="corner">头条</div>
+      </div>
+      <div style="height:22px"></div>
+      <div class="comp-label">M3 · 稿件区（衬线正文 + 荧光批注）</div>
+      <div class="draft">
+        <h3>你的咖啡，正在天上飞</h3>
+        <div class="byline">记者 张倩 · 民生视角 · 约 850 字</div>
+        <p>据翎航科技运营总监陈明宇介绍，该平台目前日均配送量已达<span class="src">12 万单</span>，相比去年同期翻了近三倍……</p>
+        <div class="ai-note">✎ AI 批注：此数据与采访素材不符，请核对（红色点线可溯源）</div>
+      </div>
+    </div>
+    <div>
+      <div class="comp-label">M4 · 审校问题卡（校对批注样式）</div>
+      <div class="issue">
+        <div class="head"><span class="badge-high">高风险</span><span class="type">事实核查</span><span style="margin-left:auto;font-size:11px;color:var(--ink2);">R1 / 4</span></div>
+        <div class="body">
+          <div class="quote">日均配送量已达 <mark>12 万单</mark></div>
+          <div class="fix">建议改为：<b>日均配送量约 1.2 万单</b><br><span style="font-size:12px;color:var(--ink2);">依据：采访素材 00:12 "日均配送量在 1.2 万单左右" ——陈明宇</span></div>
+        </div>
+        <div class="btn-row"><button class="btn primary">✓ 采纳修改</button><button class="btn">忽略</button></div>
+      </div>
+      <div style="height:22px"></div>
+      <div class="comp-label">M5 · 平台仿真壳（报纸质感统一化）</div>
+      <div class="shells">
+        <div class="shell"><div class="plat">公众号 <i>✓就绪</i></div><h4>你的咖啡，正在天上飞</h4><div class="imgph">头图占位</div><p>午后两点，福田区一栋写字楼的天台停机坪……</p></div>
+        <div class="shell"><div class="plat">微博 <i>136/140</i></div><p>【你的咖啡，正在天上飞】深圳低空外卖日均已达约 1.2 万单：132 条航线、89 个社区园区…… <span style="color:#1F5C8E">#低空经济#</span></p></div>
+        <div class="shell"><div class="plat">抖音脚本 <i>5镜</i></div><p>镜1｜无人机吊舱降落特写<br>"你的咖啡，可能正在天上飞。"<br>镜2｜城市天际线+数字弹出……</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note serif"><span>方案 A · 铅字新闻 EDITORIAL MODERN</span><span>适配倾向：学术庄重场合 / 强调新闻专业主义传承</span></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>方案A · 终稿方向 — 纸与屏</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --paper:#F7F5F0; --paper2:#EFEBE2; --ink:#1A1817; --ink2:#5C5852; --line:#D8D2C4;
+    --red:#C8102E; --hl:#FFE96B;
+    --c-m1:#C8102E; --c-m2:#B4690E; --c-m3:#2F6B3A; --c-m4:#8E1F2F;
+    /* 屏世界（冷调浅色） */
+    --scr:#E9EFF7; --scr-panel:#FFFFFF; --scr-edge:#CFDAE9; --scr-txt:#1C2534; --scr-sub:#6B7A94;
+    --neon-g:#0EA968; --neon-c:#0891B2; --gold:#D97706;
+  }
+  body { background:var(--paper); color:var(--ink); font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; }
+  .serif { font-family:Georgia,"Noto Serif SC","SimSun",serif; }
+  .wrap { max-width:1240px; margin:0 auto; padding:48px 32px 96px; }
+  a.back { color:var(--red); text-decoration:none; font-size:13px; letter-spacing:2px; }
+
+  .masthead { text-align:center; border-bottom:3px double var(--ink); padding-bottom:20px; margin:18px 0 8px; }
+  .masthead .kicker { font-size:12px; letter-spacing:6px; color:var(--ink2); margin-bottom:10px; }
+  .masthead h1 { font-size:46px; letter-spacing:8px; font-weight:900; }
+  .masthead h1 em { color:var(--red); font-style:normal; }
+  .dateline { display:flex; justify-content:space-between; font-size:12px; color:var(--ink2); border-bottom:1px solid var(--ink); padding:8px 2px; margin-bottom:36px; letter-spacing:1px; }
+
+  .intro { display:grid; grid-template-columns:2fr 1fr; gap:28px; margin-bottom:44px; }
+  .intro p { font-size:14px; line-height:2; color:var(--ink2); margin-bottom:10px; }
+  .intro .hl { background:linear-gradient(transparent 55%, var(--hl) 55%); color:var(--ink); font-weight:600; }
+  .spec { border:1px solid var(--ink); padding:20px; font-size:13px; line-height:2.1; background:#FDFCF9; }
+  .spec b { display:block; border-bottom:1px solid var(--line); margin-bottom:8px; padding-bottom:6px; letter-spacing:2px; }
+
+  .sec-title { font-size:13px; letter-spacing:4px; color:var(--ink2); border-top:1px solid var(--ink); padding-top:10px; margin:40px 0 20px; display:flex; justify-content:space-between; }
+
+  /* 纸→屏 模块条 */
+  .strip { display:grid; grid-template-columns:repeat(6,1fr); border:1px solid var(--ink); overflow:hidden; }
+  .cell { padding:18px 12px 14px; border-right:1px solid var(--line); background:#FDFCF9; position:relative; }
+  .cell .page { font-family:Georgia,serif; font-size:22px; font-weight:900; }
+  .cell .bar { height:4px; margin:8px 0; }
+  .cell .name { font-size:13px; font-weight:700; }
+  .cell .en { font-size:10px; color:var(--ink2); letter-spacing:1px; }
+  .cell.screen { background:var(--scr); border-right:1px solid var(--scr-edge); color:var(--scr-txt); background-image:linear-gradient(180deg, #F3F7FC, #E9EFF7); }
+  .cell.screen .en { color:var(--scr-sub); }
+  .cell.screen .page { background:linear-gradient(90deg,var(--neon-c),var(--neon-g)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .cell.screen:last-child .page { background:linear-gradient(90deg,var(--gold),#FF8845); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .transition-mark { position:absolute; left:-13px; top:50%; transform:translateY(-50%); background:var(--red); color:#fff; font-size:9px; padding:3px 6px; letter-spacing:1px; z-index:2; writing-mode:vertical-rl; }
+
+  /* 步骤条 */
+  .stepbar { display:flex; align-items:center; border:1px solid var(--ink); background:#FDFCF9; padding:0; overflow:hidden; }
+  .sb-paper { display:flex; align-items:center; padding:18px 20px; flex:4; }
+  .sb-screen { display:flex; align-items:center; padding:18px 20px; flex:2; background:var(--scr); }
+  .step { display:flex; align-items:center; gap:9px; }
+  .step .no { font-family:Georgia,serif; font-size:19px; font-weight:900; color:var(--line); }
+  .step .lbl { font-size:13px; color:var(--ink2); letter-spacing:2px; }
+  .step.done .no, .step.done .lbl { color:var(--ink); }
+  .step.cur .no { color:var(--red); }
+  .step.cur .lbl { color:var(--ink); font-weight:800; border-bottom:3px solid var(--red); padding-bottom:2px; }
+  .conn { width:34px; height:1px; background:var(--ink); margin:0 10px; opacity:.35; }
+  .sb-screen .step .no { color:#B9C7DB; }
+  .sb-screen .step .lbl { color:var(--scr-sub); }
+  .sb-screen .conn { background:var(--scr-edge); opacity:1; }
+  .fold { width:26px; align-self:stretch; background:linear-gradient(105deg, #FDFCF9 0%, #FDFCF9 30%, #D8D2C4 46%, var(--scr) 54%, var(--scr) 100%); }
+
+  .comps { display:grid; grid-template-columns:1fr 1fr; gap:26px; }
+  .comp-label { font-size:11px; letter-spacing:3px; color:var(--ink2); margin-bottom:10px; }
+
+  /* A1 热点卡（纸） */
+  .hotcard { border:1px solid var(--ink); background:#FDFCF9; padding:20px 22px; display:flex; gap:18px; align-items:flex-start; position:relative; }
+  .hotcard .heat { font-family:Georgia,serif; font-size:44px; font-weight:900; color:var(--red); line-height:1; }
+  .hotcard .heat small { display:block; font-size:10px; color:var(--ink2); letter-spacing:2px; font-family:-apple-system,"Microsoft YaHei",sans-serif; }
+  .hotcard h3 { font-size:19px; margin-bottom:8px; }
+  .hotcard .tags span { font-size:11px; border:1px solid var(--line); padding:2px 10px; margin-right:6px; color:var(--ink2); }
+  .hotcard .corner { position:absolute; top:0; right:0; background:var(--red); color:#fff; font-size:10px; padding:3px 10px; letter-spacing:2px; }
+
+  /* A4 审校卡（纸） */
+  .issue { border:1px solid var(--ink); background:#FDFCF9; }
+  .issue .head { display:flex; align-items:center; gap:10px; padding:12px 18px; border-bottom:1px solid var(--line); }
+  .badge-high { background:var(--red); color:#fff; font-size:11px; padding:3px 10px; letter-spacing:2px; }
+  .issue .type { font-size:13px; font-weight:800; letter-spacing:1px; }
+  .issue .body { padding:16px 18px; font-size:14px; line-height:1.9; }
+  .issue .quote { background:var(--paper2); border-left:3px solid var(--ink); padding:10px 14px; margin-bottom:12px; font-family:Georgia,"Noto Serif SC",serif; }
+  .issue .quote mark { background:var(--hl); padding:0 3px; font-weight:700; }
+  .issue .fix b { color:#2F6B3A; }
+  .btn-row { display:flex; gap:12px; padding:14px 18px 18px; }
+  .btn { font-size:13px; padding:9px 22px; cursor:pointer; letter-spacing:2px; border:1px solid var(--ink); background:#FDFCF9; color:var(--ink); }
+  .btn.primary { background:var(--ink); color:var(--paper); }
+
+  /* A5 数字发射台（屏·浅） */
+  .launch { background:linear-gradient(180deg,#F3F7FC,var(--scr)); border:1px solid var(--scr-edge); border-radius:14px; padding:22px 24px; color:var(--scr-txt); position:relative; overflow:hidden; box-shadow:0 4px 20px rgba(28,37,52,.06); }
+  .launch::before { content:""; position:absolute; top:-60px; right:-40px; width:200px; height:200px; border-radius:50%; background:var(--neon-g); opacity:.10; filter:blur(40px); }
+  .launch .lhead { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+  .launch .lhead .sig { background:rgba(14,169,104,.1); border:1px solid rgba(14,169,104,.35); color:var(--neon-g); font-size:11px; padding:3px 12px; border-radius:999px; letter-spacing:2px; }
+  .launch .lhead h3 { font-size:15px; font-weight:800; }
+  .launch .lhead .cta { margin-left:auto; background:linear-gradient(135deg,#0EA968,#0891B2); color:#fff; font-size:12px; font-weight:800; padding:8px 18px; border-radius:9px; letter-spacing:1px; box-shadow:0 4px 16px rgba(14,169,104,.25); }
+  .shells { display:flex; gap:16px; }
+  .shell { flex:1; border-radius:18px; background:#EDF1F8; border:1px solid var(--scr-edge); padding:11px 9px; font-size:9px; position:relative; box-shadow:0 2px 10px rgba(28,37,52,.08); }
+  .shell::before { content:""; position:absolute; top:5px; left:50%; transform:translateX(-50%); width:36px; height:4px; border-radius:999px; background:#C4D0E2; }
+  .shell .scr2 { margin-top:9px; border-radius:11px; overflow:hidden; background:#fff; color:#222; padding:8px; min-height:88px; }
+  .shell.dy .scr2 { background:#0D0D11; color:#ddd; }
+  .shell h4 { font-size:10px; margin-bottom:4px; font-weight:800; }
+  .shell p { line-height:1.7; color:#666; }
+  .shell.dy p { color:#aaa; }
+  .shell .ok { position:absolute; bottom:-9px; left:50%; transform:translateX(-50%); background:var(--neon-g); color:#fff; font-size:9px; font-weight:800; padding:2px 12px; border-radius:999px; box-shadow:0 3px 12px rgba(14,169,104,.4); }
+
+  /* A6 数据大屏（屏·浅） */
+  .dash { background:linear-gradient(180deg,#F3F7FC,var(--scr)); border:1px solid var(--scr-edge); border-radius:14px; padding:22px 24px; color:var(--scr-txt); position:relative; overflow:hidden; box-shadow:0 4px 20px rgba(28,37,52,.06); }
+  .dash::before { content:""; position:absolute; top:-60px; left:-40px; width:200px; height:200px; border-radius:50%; background:var(--gold); opacity:.10; filter:blur(40px); }
+  .dash .kpis { display:flex; gap:26px; margin-bottom:14px; }
+  .dash .kpi b { font-size:30px; font-weight:900; display:block; font-variant-numeric:tabular-nums; background:linear-gradient(90deg,#D97706,#EA580C); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .dash .kpi span { font-size:10px; color:var(--scr-sub); letter-spacing:2px; }
+  .dash .ainote { margin-top:12px; border:1px dashed rgba(217,119,6,.4); background:rgba(217,119,6,.06); color:#92600A; font-size:12px; padding:8px 14px; border-radius:9px; line-height:1.8; }
+  .dash .loopbtn { display:inline-block; margin-top:12px; background:linear-gradient(135deg,#D97706,#EA580C); color:#fff; font-size:12px; font-weight:900; padding:9px 20px; border-radius:999px; letter-spacing:1px; box-shadow:0 4px 16px rgba(217,119,6,.25); }
+
+  .bridge { margin:34px 0; border:1px solid var(--ink); display:flex; overflow:hidden; }
+  .bridge .b-paper { flex:1; background:#FDFCF9; padding:20px 24px; }
+  .bridge .b-fold { width:60px; background:linear-gradient(105deg, #FDFCF9 0%, #FDFCF9 25%, #D8D2C4 47%, var(--scr) 53%, var(--scr) 100%); }
+  .bridge .b-screen { flex:1; background:linear-gradient(180deg,#F3F7FC,var(--scr)); color:var(--scr-txt); padding:20px 24px; }
+  .bridge h4 { font-size:15px; margin-bottom:8px; }
+  .bridge p { font-size:12px; line-height:1.9; color:var(--ink2); }
+  .bridge .b-screen p { color:var(--scr-sub); }
+  .bridge .b-screen h4 { background:linear-gradient(90deg,var(--neon-c),var(--neon-g)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+
+  .footer-note { margin-top:52px; border-top:3px double var(--ink); padding-top:14px; font-size:12px; color:var(--ink2); display:flex; justify-content:space-between; letter-spacing:1px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">← 返回方案总览</a>
+  <div class="masthead">
+    <div class="kicker">PROPOSAL A — FINAL DIRECTION</div>
+    <h1 class="serif">纸与<em>屏</em></h1>
+  </div>
+  <div class="dateline serif"><span>铅字新闻 · 纸屏双世界版</span><span>A1-A4 报纸世界 · A5-A6 数字世界</span><span>VOL.03 · 2026</span></div>
+
+  <div class="intro">
+    <div>
+      <p>本版在方案 A 原版基础上只改一件事：<span class="hl">稿件签发的那一刻，纸变成屏</span>。选题、采访、写作、审校四个环节发生在报社内部——保持原版的暖白纸底、衬线标题、栏线网格与版面专色；而当总编的红章落下，稿件离开报社进入渠道与数据的世界——<span class="hl">A5 分发与 A6 洞察切换为冷调浅色数字界面</span>：暖纸变冷屏，靠色温与材质区分两个世界，而非明暗（投影亮度友好）。</p>
+      <p>这个切换不是风格失控，而是叙事本身：<span class="hl">界面的形态变化复现了新闻业的媒介变迁</span>——内容在纸上诞生，在屏上抵达与回响。讲到 A5 时，画面从暖米白的"纸"翻入冷蓝白的"屏"，圆角卡片、渐变按钮、弥散光晕替代了栏线与衬线网格。对台下研究媒介融合的院长们，这层设计语言不需要解释。</p>
+      <p><b>两个世界的缝合</b>：跨世界元素保证整体性——报头红在屏世界延续为强调色；衬线体保留在屏世界的大数字与标题；A6 的 AI 复盘便签飞回 A1 头版时，从"屏"变回"纸"，闭环动效同时完成世界穿越。</p>
+    </div>
+    <div class="spec">
+      <b>双世界 TOKENS</b>
+      纸世界（A1-A4）：<br>
+      纸底 #F7F5F0 · 油墨 #1A1817<br>
+      报头红 #C8102E · 荧光批注 #FFE96B<br>
+      版面专色：A1红 A2赭 A3绿 A4深红<br>
+      <br>
+      屏世界（A5-A6，冷调浅色）：<br>
+      屏底 #E9EFF7 · 白面板 #FFFFFF<br>
+      A5 发射绿 #0EA968 + 信号青 #0891B2<br>
+      A6 数据金 #D97706<br>
+      材质：圆角卡片 + 渐变 + 弥散光晕<br>
+      缝合：报头红与衬线体贯穿两界
+    </div>
+  </div>
+
+  <div class="sec-title"><span>六模块 · 纸屏分界</span><span>A4 与 A5 之间：签发 = 越界</span></div>
+  <div class="strip">
+    <div class="cell"><div class="page serif" style="color:var(--c-m1)">A1</div><div class="bar" style="background:var(--c-m1)"></div><div class="name">智能选题</div><div class="en">纸 · 要闻版</div></div>
+    <div class="cell"><div class="page serif" style="color:var(--c-m2)">A2</div><div class="bar" style="background:var(--c-m2)"></div><div class="name">采访助手</div><div class="en">纸 · 采访版</div></div>
+    <div class="cell"><div class="page serif" style="color:var(--c-m3)">A3</div><div class="bar" style="background:var(--c-m3)"></div><div class="name">智能写作台</div><div class="en">纸 · 副刊版</div></div>
+    <div class="cell"><div class="page serif" style="color:var(--c-m4)">A4</div><div class="bar" style="background:var(--c-m4)"></div><div class="name">智能审校</div><div class="en">纸 · 校对室</div></div>
+    <div class="cell screen"><div class="transition-mark">签发·越界</div><div class="page serif">A5</div><div class="bar" style="background:linear-gradient(90deg,#22D3EE,#34D399)"></div><div class="name">全渠道分发</div><div class="en">屏 · 发射台</div></div>
+    <div class="cell screen"><div class="page serif">A6</div><div class="bar" style="background:linear-gradient(90deg,#FBBF24,#FF8845)"></div><div class="name">效果洞察</div><div class="en">屏 · 数据大屏</div></div>
+  </div>
+
+  <div class="sec-title"><span>全局步骤条 · 实景</span><span>一条步骤条横跨两个世界，中缝做"翻页"渐变</span></div>
+  <div class="stepbar">
+    <div class="sb-paper">
+      <div class="step done"><span class="no serif">A1</span><span class="lbl">选题</span></div><div class="conn"></div>
+      <div class="step done"><span class="no serif">A2</span><span class="lbl">采访</span></div><div class="conn"></div>
+      <div class="step done"><span class="no serif">A3</span><span class="lbl">写作</span></div><div class="conn"></div>
+      <div class="step cur"><span class="no serif">A4</span><span class="lbl">审校</span></div>
+    </div>
+    <div class="fold"></div>
+    <div class="sb-screen">
+      <div class="step"><span class="no serif">A5</span><span class="lbl">分发</span></div><div class="conn"></div>
+      <div class="step"><span class="no serif">A6</span><span class="lbl">洞察</span></div>
+    </div>
+  </div>
+
+  <div class="sec-title"><span>纸世界组件 · 实景（与原版一致）</span><span>A1 热点卡 / A4 审校卡</span></div>
+  <div class="comps">
+    <div>
+      <div class="comp-label">A1 · 热点雷达条目（版面头条样式）</div>
+      <div class="hotcard">
+        <div class="heat serif">92<small>热度</small></div>
+        <div>
+          <h3 class="serif">低空经济再提速：深圳无人机外卖配送单量激增</h3>
+          <div class="tags"><span>微博热搜</span><span>本地论坛</span><span>短视频</span></div>
+        </div>
+        <div class="corner">头条</div>
+      </div>
+    </div>
+    <div>
+      <div class="comp-label">A4 · 审校问题卡（校对批注样式）</div>
+      <div class="issue">
+        <div class="head"><span class="badge-high">高风险</span><span class="type">事实核查</span><span style="margin-left:auto;font-size:11px;color:var(--ink2);">R1 / 4</span></div>
+        <div class="body">
+          <div class="quote">日均配送量已达 <mark>12 万单</mark></div>
+          <div class="fix">建议改为：<b>日均配送量约 1.2 万单</b>　<span style="font-size:12px;color:var(--ink2);">依据：素材 00:12 ——陈明宇</span></div>
+        </div>
+        <div class="btn-row"><button class="btn primary">✓ 采纳修改</button><button class="btn">忽略</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-title"><span>越界转场 · 签发动效示意</span><span>红章落下 → 纸页翻起 → 进入屏世界</span></div>
+  <div class="bridge">
+    <div class="b-paper">
+      <h4 class="serif">纸的最后一幕：签发</h4>
+      <p>总编在校样上盖下红色圆章——这是纸世界的告别仪式。印章落定后，稿纸边缘泛起翻页动画，界面自右向左"翻"入深色屏世界。</p>
+    </div>
+    <div class="b-fold"></div>
+    <div class="b-screen">
+      <h4>屏的第一幕：发射</h4>
+      <p>冷蓝白的发射台已就绪，三块手机屏等待点亮。报头红延续为屏世界的强调色，衬线标题继续出现在大数字上——两个世界，一家报社。</p>
+    </div>
+  </div>
+
+  <div class="sec-title"><span>屏世界组件 · 实景</span><span>A5 数字发射台 / A6 数据大屏</span></div>
+  <div class="comps">
+    <div>
+      <div class="comp-label">A5 · 全渠道分发（屏 · 发射绿）</div>
+      <div class="launch">
+        <div class="lhead"><span class="sig">✓ 已签发</span><h3 class="serif">你的咖啡，正在天上飞</h3><span class="cta">一键适配全平台</span></div>
+        <div class="shells">
+          <div class="shell"><div class="scr2"><h4>你的咖啡，正在天上飞</h4><p>午后两点，福田区一栋写字楼的天台停机坪……</p></div><div class="ok">✓ 就绪</div></div>
+          <div class="shell"><div class="scr2"><p style="color:#333">【你的咖啡，正在天上飞】深圳低空外卖日均约 1.2 万单…… <span style="color:#1D6BC0">#低空经济#</span></p></div><div class="ok">✓ 就绪</div></div>
+          <div class="shell dy"><div class="scr2"><h4 style="color:#eee">口播脚本</h4><p>镜1｜无人机吊舱降落特写 · 3s<br>"你的咖啡，可能正在天上飞。"</p></div><div class="ok">✓ 就绪</div></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="comp-label">A6 · 效果洞察（屏 · 数据金）</div>
+      <div class="dash">
+        <div class="kpis">
+          <div class="kpi"><b class="serif">96.4万</b><span>抖音播放</span></div>
+          <div class="kpi"><b class="serif">182万</b><span>微博曝光</span></div>
+          <div class="kpi"><b class="serif">52,418</b><span>公众号阅读</span></div>
+        </div>
+        <svg width="100%" height="72" viewBox="0 0 440 72" preserveAspectRatio="none">
+          <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FBBF24"/><stop offset="1" stop-color="#FF8845"/></linearGradient></defs>
+          <polyline points="0,66 37,60 74,48 111,42 148,35 185,31 222,21 259,12 296,9 333,7 370,5 407,4" fill="none" stroke="url(#lg)" stroke-width="2.5"/>
+          <circle cx="222" cy="21" r="4" fill="#C8102E"/>
+          <text x="230" y="16" font-size="10" fill="#FBBF24">短视频引爆</text>
+        </svg>
+        <div class="ainote">AI 复盘：评论区"安全/监管"关键词占比 17%，公众关切正从新奇体验转向安全与秩序 → 建议追踪《低空物流安全监管》</div>
+        <span class="loopbtn">将追踪选题送回 A1 要闻版 →</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note serif"><span>方案 A 终稿方向 · 纸与屏</span><span>纸上诞生 · 屏上抵达 · 数据回纸 —— 界面即媒介变迁叙事</span></div>
+</div>
+</body>
+</html>

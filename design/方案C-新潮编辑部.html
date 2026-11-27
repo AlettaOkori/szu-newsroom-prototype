@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>方案C · 新潮编辑部 Bento Pop</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --bg:#F2F3F7; --card:#FFFFFF; --ink:#16181D; --sub:#7A8194; --edge:#E6E8F0;
+    /* 六模块渐变主题 */
+    --g-m1:linear-gradient(135deg,#3D8BFF,#2FD8C8); --m1:#2F7FE8;
+    --g-m2:linear-gradient(135deg,#FF9F45,#FF5C7A); --m2:#F27B3D;
+    --g-m3:linear-gradient(135deg,#7C5CFF,#4D8DFF); --m3:#6C55E8;
+    --g-m4:linear-gradient(135deg,#FF5C5C,#FF9345); --m4:#E84D4D;
+    --g-m5:linear-gradient(135deg,#2FD873,#2FC8D8); --m5:#22B85F;
+    --g-m6:linear-gradient(135deg,#FFC145,#FF8845); --m6:#E8A227;
+  }
+  body { background:var(--bg); color:var(--ink); font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; }
+  .wrap { max-width:1200px; margin:0 auto; padding:48px 32px 96px; }
+  a.back { color:var(--m3); text-decoration:none; font-size:13px; letter-spacing:2px; font-weight:700; }
+
+  .hero { margin:24px 0 40px; }
+  .hero .kicker { font-size:12px; letter-spacing:6px; color:var(--sub); margin-bottom:12px; font-weight:700; }
+  .hero h1 { font-size:48px; font-weight:900; letter-spacing:1px; }
+  .hero h1 span { background:linear-gradient(90deg,#FF5C7A,#FF9F45,#7C5CFF); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .hero .sub { color:var(--sub); margin-top:10px; font-size:15px; }
+
+  .concept { display:grid; grid-template-columns:2fr 1fr; gap:24px; margin-bottom:44px; }
+  .bento { background:var(--card); border-radius:24px; border:1px solid var(--edge); box-shadow:0 2px 14px rgba(22,24,29,.05); }
+  .concept .main { padding:28px 32px; }
+  .concept h2 { font-size:22px; margin-bottom:14px; }
+  .concept p { font-size:14px; line-height:2; color:#4A5064; margin-bottom:10px; }
+  .pill { display:inline-block; padding:2px 12px; border-radius:999px; font-size:12px; font-weight:800; color:#fff; margin:0 2px; vertical-align:1px; }
+  .spec { padding:24px 26px; font-size:13px; line-height:2.1; color:#4A5064; }
+  .spec b { display:block; color:var(--ink); letter-spacing:2px; border-bottom:2px solid var(--ink); padding-bottom:8px; margin-bottom:10px; }
+
+  .sec-title { font-size:13px; letter-spacing:4px; color:var(--sub); margin:44px 0 18px; display:flex; justify-content:space-between; font-weight:800; }
+
+  .palette { display:flex; gap:12px; }
+  .sw { flex:1; height:92px; border-radius:18px; position:relative; border:1px solid var(--edge); }
+  .sw span { position:absolute; bottom:8px; left:12px; font-size:11px; font-weight:700; color:#fff; }
+  .sw.light span { color:var(--sub); }
+
+  /* 便当格模块拼盘 */
+  .mods { display:grid; grid-template-columns:repeat(6,1fr); gap:14px; }
+  .mod { border-radius:20px; padding:18px 14px; color:#fff; position:relative; overflow:hidden; min-height:118px; }
+  .mod .num { position:absolute; right:10px; top:6px; font-size:40px; font-weight:900; opacity:.22; }
+  .mod .name { font-size:14px; font-weight:800; margin-top:44px; }
+  .mod .en { font-size:9px; letter-spacing:2px; opacity:.8; margin-top:3px; }
+
+  /* 步骤条：胶囊段 */
+  .stepbar { display:flex; gap:8px; padding:14px; border-radius:999px; background:var(--card); border:1px solid var(--edge); box-shadow:0 2px 14px rgba(22,24,29,.05); }
+  .st { flex:1; text-align:center; padding:10px 0; border-radius:999px; font-size:14px; color:var(--sub); font-weight:700; position:relative; }
+  .st.done { background:#EDF0F6; color:var(--ink); }
+  .st.done::after { content:" ✓"; font-size:12px; color:var(--m5); }
+  .st.cur { background:var(--g-m3); color:#fff; box-shadow:0 6px 18px rgba(124,92,255,.35); }
+
+  .comps { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  .comp-label { font-size:11px; letter-spacing:3px; color:var(--sub); margin-bottom:10px; font-weight:800; }
+
+  /* 热点卡 M1 */
+  .hotcard { border-radius:22px; padding:20px 22px; display:flex; gap:18px; align-items:center; background:var(--card); border:1px solid var(--edge); box-shadow:0 2px 14px rgba(22,24,29,.05); position:relative; }
+  .heatchip { width:74px; height:74px; border-radius:20px; background:var(--g-m1); color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0; }
+  .heatchip b { font-size:28px; font-weight:900; }
+  .heatchip small { font-size:9px; letter-spacing:2px; opacity:.85; }
+  .hotcard h3 { font-size:17px; font-weight:800; margin-bottom:8px; }
+  .hotcard .tags span { font-size:11px; background:#EDF0F6; border-radius:999px; padding:3px 12px; margin-right:6px; color:#4A5064; font-weight:600; }
+  .sticker { position:absolute; top:-10px; right:16px; background:var(--g-m6); color:#fff; font-size:11px; font-weight:900; padding:5px 14px; border-radius:999px; transform:rotate(3deg); box-shadow:0 4px 12px rgba(255,136,69,.4); }
+
+  /* 审校卡 M4 */
+  .issue { border-radius:22px; background:var(--card); border:1px solid var(--edge); box-shadow:0 2px 14px rgba(22,24,29,.05); overflow:hidden; }
+  .issue .head { display:flex; align-items:center; gap:10px; padding:16px 20px; background:linear-gradient(135deg,#FFF1F1,#FFF7EF); }
+  .badge-high { background:var(--g-m4); color:#fff; font-size:11px; font-weight:900; padding:4px 14px; border-radius:999px; }
+  .issue .type { font-size:14px; font-weight:800; }
+  .issue .body { padding:16px 20px; font-size:14px; line-height:1.9; }
+  .evi { display:flex; gap:10px; align-items:stretch; margin:10px 0 4px; }
+  .evi .cell { flex:1; border-radius:14px; padding:12px 14px; font-size:12px; line-height:1.8; }
+  .evi .bad { background:#FFF1F1; color:#8A3A3A; }
+  .evi .bad b { color:var(--m4); }
+  .evi .good { background:#EFFAF3; color:#2E6647; }
+  .evi .good b { color:var(--m5); }
+  .btn-row { display:flex; gap:12px; padding:0 20px 20px; }
+  .btn { font-size:13px; font-weight:800; padding:11px 26px; cursor:pointer; border-radius:999px; border:none; }
+  .btn.primary { background:var(--ink); color:#fff; box-shadow:0 6px 16px rgba(22,24,29,.25); }
+  .btn.ghost { background:#EDF0F6; color:var(--sub); }
+
+  /* 数据卡 M6 */
+  .stat { border-radius:22px; padding:20px 22px; background:var(--g-m6); color:#fff; display:flex; gap:26px; }
+  .stat .kpi b { font-size:34px; font-weight:900; display:block; font-variant-numeric:tabular-nums; }
+  .stat .kpi span { font-size:11px; opacity:.85; letter-spacing:1px; }
+
+  /* 手机壳 M5 */
+  .shells { display:flex; gap:16px; }
+  .shell { width:148px; border-radius:24px; background:var(--ink); padding:10px 8px; font-size:9px; position:relative; }
+  .shell::before { content:""; position:absolute; top:5px; left:50%; transform:translateX(-50%); width:38px; height:5px; border-radius:999px; background:#3A3F4C; }
+  .shell .scr { margin-top:9px; border-radius:16px; overflow:hidden; background:#fff; color:#222; padding:9px; min-height:96px; }
+  .shell.dy .scr { background:#0D0D11; color:#ddd; }
+  .shell h4 { font-size:10px; margin-bottom:4px; font-weight:800; }
+  .shell p { line-height:1.7; color:#666; }
+  .shell.dy p { color:#aaa; }
+  .shell .ok { position:absolute; bottom:-9px; left:50%; transform:translateX(-50%); background:var(--g-m5); color:#fff; font-size:9px; font-weight:900; padding:3px 14px; border-radius:999px; box-shadow:0 4px 12px rgba(47,216,115,.4); }
+
+  .footer-note { margin-top:56px; border-top:1px solid var(--edge); padding-top:16px; font-size:12px; color:var(--sub); display:flex; justify-content:space-between; letter-spacing:1px; font-weight:600; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">← 返回方案总览</a>
+  <div class="hero">
+    <div class="kicker">UI / UX PROPOSAL — C</div>
+    <h1>BENTO POP · <span>新潮编辑部</span></h1>
+    <div class="sub">浅色便当格 × 六色渐变主题 × 超大数字 —— 学生一代的审美语言</div>
+  </div>
+
+  <div class="concept">
+    <div class="bento main">
+      <h2>设计概念：像新媒体产品一样年轻</h2>
+      <p>这批院长每天面对的核心命题是"怎么让教育追上学生所在的媒介环境"。本方案直接采用学生一代日常浸泡的产品语言：浅底、大圆角便当格（Bento Grid）拼盘布局、高饱和渐变色块、超大号数字、贴纸式胶囊标签——界面本身就在回答"新的新闻产品长什么样"。</p>
+      <p><b>模块区分逻辑（渐变主题系统）</b>：六个模块各持一组高饱和渐变——<span class="pill" style="background:linear-gradient(135deg,#3D8BFF,#2FD8C8)">选题·晴空</span><span class="pill" style="background:linear-gradient(135deg,#FF9F45,#FF5C7A)">采访·落日</span><span class="pill" style="background:linear-gradient(135deg,#7C5CFF,#4D8DFF)">写作·星夜</span><span class="pill" style="background:linear-gradient(135deg,#FF5C5C,#FF9345)">审校·警灯</span><span class="pill" style="background:linear-gradient(135deg,#2FD873,#2FC8D8)">分发·通行</span><span class="pill" style="background:linear-gradient(135deg,#FFC145,#FF8845)">洞察·丰收</span>。模块 hero 区、当前步骤胶囊、主要数据块使用主题渐变。</p>
+      <p><b>继承性</b>：统一的浅灰底、白色便当卡、圆角与投影体系、墨黑主按钮；渐变只作为"每个房间的主题墙"，家具（卡片/字体/按钮）全屋一致。</p>
+    </div>
+    <div class="bento spec">
+      <b>设计 TOKENS</b>
+      浅底 #F2F3F7 · 白卡 #FFFFFF<br>
+      墨黑 #16181D · 六组主题渐变<br>
+      字体：系统栈，标题 800-900 字重<br>
+      圆角：20-24px · 胶囊 999px<br>
+      投影：轻浮起 + 主题色弥散投影<br>
+      动效：卡片弹跳 / 数字滚动 / 贴纸旋转
+    </div>
+  </div>
+
+  <div class="sec-title"><span>色板 PALETTE</span><span>一套中性骨架，六面主题墙</span></div>
+  <div class="palette">
+    <div class="sw light" style="background:#F2F3F7;"><span>浅底</span></div>
+    <div class="sw light" style="background:#FFFFFF;"><span>白卡</span></div>
+    <div class="sw" style="background:#16181D;"><span>墨黑</span></div>
+    <div class="sw" style="background:var(--g-m1);"><span>M1 晴空</span></div>
+    <div class="sw" style="background:var(--g-m2);"><span>M2 落日</span></div>
+    <div class="sw" style="background:var(--g-m3);"><span>M3 星夜</span></div>
+    <div class="sw" style="background:var(--g-m4);"><span>M4 警灯</span></div>
+    <div class="sw" style="background:var(--g-m5);"><span>M5 通行</span></div>
+    <div class="sw" style="background:var(--g-m6);"><span>M6 丰收</span></div>
+  </div>
+
+  <div class="sec-title"><span>六模块 · 渐变主题拼盘</span><span>区分：主题渐变 / 继承：白卡骨架+墨黑按钮</span></div>
+  <div class="mods">
+    <div class="mod" style="background:var(--g-m1)"><div class="num">1</div><div class="name">智能选题</div><div class="en">TOPIC RADAR</div></div>
+    <div class="mod" style="background:var(--g-m2)"><div class="num">2</div><div class="name">采访助手</div><div class="en">INTERVIEW</div></div>
+    <div class="mod" style="background:var(--g-m3)"><div class="num">3</div><div class="name">智能写作台</div><div class="en">WRITING</div></div>
+    <div class="mod" style="background:var(--g-m4)"><div class="num">4</div><div class="name">智能审校</div><div class="en">REVIEW</div></div>
+    <div class="mod" style="background:var(--g-m5)"><div class="num">5</div><div class="name">全渠道分发</div><div class="en">PUBLISH</div></div>
+    <div class="mod" style="background:var(--g-m6)"><div class="num">6</div><div class="name">效果洞察</div><div class="en">INSIGHTS</div></div>
+  </div>
+
+  <div class="sec-title"><span>全局步骤条 · 实景</span><span>胶囊分段：当前段承接模块渐变（示例：写作·星夜）</span></div>
+  <div class="stepbar">
+    <div class="st done">选题</div>
+    <div class="st done">采访</div>
+    <div class="st cur">写作中</div>
+    <div class="st">审校</div>
+    <div class="st">分发</div>
+    <div class="st">洞察</div>
+  </div>
+
+  <div class="sec-title"><span>关键组件 · 实景渲染</span><span>M1 热点卡 / M4 审校卡 / M6 数据块 / M5 手机壳</span></div>
+  <div class="comps">
+    <div>
+      <div class="comp-label">M1 · 热点雷达条目（热度色块 + 贴纸角标）</div>
+      <div class="hotcard">
+        <div class="heatchip"><b>92</b><small>热度</small></div>
+        <div>
+          <h3>低空经济再提速：深圳无人机外卖配送单量激增</h3>
+          <div class="tags"><span>微博热搜</span><span>本地论坛</span><span>短视频</span></div>
+        </div>
+        <div class="sticker">🔥 飙升中</div>
+      </div>
+      <div style="height:22px"></div>
+      <div class="comp-label">M6 · 数据看板块（丰收渐变 + 超大数字）</div>
+      <div class="stat">
+        <div class="kpi"><b>96.4万</b><span>抖音播放</span></div>
+        <div class="kpi"><b>182万</b><span>微博曝光</span></div>
+        <div class="kpi"><b>52,418</b><span>公众号阅读</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="comp-label">M4 · 审校问题卡（红绿双卡对比）</div>
+      <div class="issue">
+        <div class="head"><span class="badge-high">高风险</span><span class="type">事实核查</span><span style="margin-left:auto;font-size:11px;color:var(--sub);font-weight:700;">R1 / 4</span></div>
+        <div class="body">
+          稿件表述与采访素材不一致：
+          <div class="evi">
+            <div class="cell bad">稿件写的<br><b>12 万单 ✗</b></div>
+            <div class="cell good">素材说的（00:12 陈明宇）<br><b>1.2 万单 ✓</b></div>
+          </div>
+        </div>
+        <div class="btn-row"><button class="btn primary">✓ 采纳修改</button><button class="btn ghost">忽略</button></div>
+      </div>
+      <div style="height:22px"></div>
+      <div class="comp-label">M5 · 平台仿真壳（通行绿就绪贴纸）</div>
+      <div class="shells">
+        <div class="shell"><div class="scr"><h4>你的咖啡，正在天上飞</h4><p>午后两点，福田区一栋写字楼的天台停机坪……</p></div><div class="ok">✓ 就绪</div></div>
+        <div class="shell"><div class="scr"><p style="color:#333">【你的咖啡，正在天上飞】深圳低空外卖日均约 1.2 万单…… <span style="color:#1D6BC0">#低空经济#</span></p></div><div class="ok">✓ 就绪</div></div>
+        <div class="shell dy"><div class="scr"><h4 style="color:#eee">口播脚本</h4><p>镜1｜无人机吊舱降落特写 · 3s<br>"你的咖啡，可能正在天上飞。"</p></div><div class="ok">✓ 就绪</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note"><span>方案 C · BENTO POP 新潮编辑部</span><span>适配倾向：强调年轻化与新媒体气质 / 贴近学生审美</span></div>
+</div>
+</body>
+</html>

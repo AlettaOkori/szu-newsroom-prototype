@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <base href="../">
+  <title>智媒编辑部 · 互动场景样片</title>
+  <link rel="stylesheet" href="sample/styles.css">
+</head>
+<body>
+  <main class="hero" data-scene>
+    <video
+      class="scene-video"
+      data-video
+      autoplay
+      muted
+      playsinline
+      poster="assets/sample-cover.png"
+      aria-hidden="true"
+    >
+      <source src="assets/sample.mp4" type="video/mp4">
+    </video>
+    <img class="highlight" data-highlight src="assets/sample-highlight.png" alt="">
+    <svg class="hit-map" viewBox="0 0 1280 720" aria-hidden="true">
+      <polygon points="330,235 920,235 1020,570 260,570"></polygon>
+    </svg>
+    <a
+      class="desk-target"
+      data-desk
+      href="../../demo/pages/m1-topics.html"
+      aria-label="A1 智能选题，策划编辑"
+      aria-controls="role-card"
+      aria-expanded="false"
+    ></a>
+    <aside class="role-card" id="role-card" data-card hidden>
+      <span>A1 / TOPIC PLANNING</span>
+      <h1>智能选题</h1>
+      <b>策划编辑</b>
+      <p>聚合热点信号，形成可执行的报道方向。</p>
+      <em>点击进入模块 →</em>
+    </aside>
+    <p class="sr-status" data-status role="status" aria-live="polite" aria-atomic="true"></p>
+    <p class="fallback-message" data-fallback role="status" aria-live="polite" aria-atomic="true"></p>
+  </main>
+  <script src="sample/app.js"></script>
+</body>
+</html>

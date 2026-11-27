@@ -1,0 +1,44 @@
+:root{color-scheme:light;--red:#c8102e;--ink:#171717;--desk-color:var(--red);--desk-glow:#c8102e33;--desk-wash:#c8102e20}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:#f4f5f5;color:var(--ink);font-family:Inter,"Segoe UI","Microsoft YaHei",sans-serif}
+.hero{position:relative;width:100vw;height:100vh;min-height:560px;overflow:hidden;background:#f4f5f5 url("assets/newsroom-cover.png") center/cover no-repeat}
+.scene-video,.highlight-stack,.highlight,.hit-map{position:absolute;inset:0;width:100%;height:100%}
+.scene-video,.highlight{object-fit:cover}
+.scene-video,.highlight-stack{transition:filter .22s ease,transform .35s ease}
+.highlight{opacity:0;pointer-events:none;transition:opacity .1s ease}
+.hit-map{pointer-events:auto}
+.hit-map a{cursor:pointer}
+.hit-map polygon{fill:transparent;stroke:transparent;transition:fill .1s ease,stroke .1s ease}
+.hit-map a:focus-visible{outline:none}
+.hit-map a:focus-visible polygon{stroke:var(--desk-color);stroke-width:5;fill:#ffffff12}
+.hero[data-active-desk="a1"] [data-highlight-id="a1"],
+.hero[data-active-desk="a2"] [data-highlight-id="a2"],
+.hero[data-active-desk="a3"] [data-highlight-id="a3"],
+.hero[data-active-desk="a4"] [data-highlight-id="a4"],
+.hero[data-active-desk="a5"] [data-highlight-id="a5"],
+.hero[data-active-desk="a6"] [data-highlight-id="a6"]{opacity:1}
+.hero.has-selection .scene-video{filter:brightness(.78) saturate(.72)}
+.hero.has-selection .highlight{filter:drop-shadow(0 15px 26px var(--desk-glow))}
+.hero.is-confirming .scene-video,.hero.is-confirming .highlight-stack{transform:scale(1.015)}
+.hero.is-confirming .highlight{filter:brightness(1.08) drop-shadow(0 15px 26px var(--desk-glow))}
+.hero.low-performance .scene-video,.hero.video-failed .scene-video{display:none}
+.hero.low-performance .highlight-stack,.hero.static-selection .highlight-stack{display:none}
+.hero.static-selection .highlight{opacity:0}
+.hero.highlight-failed .hit-map a[aria-expanded="true"] polygon,
+.hero.low-performance .hit-map a[aria-expanded="true"] polygon,
+.hero.static-selection .hit-map a[aria-expanded="true"] polygon{fill:var(--desk-wash);stroke:var(--desk-color);stroke-width:4}
+.role-card{position:absolute;top:12vh;width:min(360px,34vw);padding:22px 24px;background:#ffffffea;border:1px solid #d8d8d8;border-left:5px solid var(--desk-color);box-shadow:0 24px 70px #20252b26;opacity:0;transform:translateY(12px);pointer-events:none;transition:.18s ease}
+.role-card[data-side="right"]{right:5vw}
+.role-card[data-side="left"]{left:5vw}
+.role-card span{font:700 11px/1.2 Consolas,monospace;letter-spacing:.15em;color:var(--desk-color)}
+.role-card h1{font:700 clamp(28px,3vw,46px)/1.05 Georgia,"Songti SC",serif;margin:10px 0}
+.role-card b{font-size:15px;color:var(--desk-color)}
+.role-card p{font-size:14px;line-height:1.7;color:#555}
+.role-card small{display:block;margin-top:12px;color:var(--desk-color)}
+.role-card em{display:block;margin-top:12px;font-style:normal;font-size:12px;font-weight:800}
+.hero.has-selection .role-card{opacity:1;transform:none}
+.sr-status,.fallback-message{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.hero.video-failed .scene-video{display:none}.hero.video-failed .fallback-message{left:50%;bottom:20px;width:auto;height:auto;margin:0;padding:9px 13px;overflow:visible;clip:auto;transform:translateX(-50%);white-space:normal;background:#fff;font-size:12px}
+@media(max-width:700px){.role-card,.role-card[data-side="right"],.role-card[data-side="left"]{left:5vw;right:5vw;top:auto;bottom:5vh;width:auto;max-height:38vh;overflow:auto}}
+@media(pointer:coarse){.hit-map polygon{stroke:transparent;stroke-width:16}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.scene-video,.highlight-stack{display:none}.hero.is-confirming .scene-video,.hero.is-confirming .highlight-stack{transform:none}.highlight{opacity:0;transition:none}}

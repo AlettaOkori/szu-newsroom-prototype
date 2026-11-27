@@ -1,0 +1,9 @@
+output/frames/
+output/newsroom-frames/
+output/newsroom-preview/
+output/newsroom-*
+output/*.blend1
+output/*.blend
+output/*.mp4
+output/*.png
+__pycache__/
